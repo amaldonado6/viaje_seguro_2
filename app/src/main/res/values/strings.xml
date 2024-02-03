@@ -1,3 +1,79 @@
 <resources>
     <string name="app_name">Viaja Seguro</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+    <string name="home">home</string>
+    <string name="banner_de_la_compa_ia">banner de la compañia</string>
+    <string name="horarios">Horarios</string>
+    <string name="buscar">Buscar</string>
+    <string name="exampledesc">description text</string>
+    <string name="exampletitle">Titulo</string>
+    <string name="origen">Origen</string>
+    <string name="destino">Destino</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="title_app">Tutum</string>
+    <string name="acceso">Acceso</string>
+    <string name="descrip_phonenumber">Por favor ingrese su número celular</string>
+    <string name="numero_celular">Número Celular</string>
+    <string name="message_warning_register_phone">Revise que el número celular sea correcto</string>
+    <string name="warning">Aviso</string>
+    <string name="verificacion">Verificación</string>
+    <string name="ingrese_el_codigo">Ingrese el Código por favor</string>
+    <string name="si_no_recibe_el_codigo">Si no recibe el Código inténtelo de nuevo</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="cod_incompleto">Código incompleto</string>
+    <string name="solicitando_servicio">Solicitando Servicio</string>
+    <string name="loggin_fail">No se pudo iniciar sesión</string>
+    <string name="codigo_enviado">Código enviado</string>
+    <string name="usuario">Usuario</string>
+    <string name="datos_del_perfil">Datos del perfil</string>
+    <string name="nombre_del_usuario">Nombre de usuario</string>
+    <string name="e_mail">E-Mail</string>
+    <string name="cargando">Cargando</string>
+    <string name="fail_mail">E-Mail inválido</string>
+    <string name="nombre_corto">Nombre demasiado corto</string>
+    <string name="seleccion">Selección</string>
+    <string name="escoja_opcion">Escoja una opción</string>
+    <string name="confirmar_origen">Confirmar Origen</string>
+    <string name="request_gps">Solicitando GPS</string>
+    <string name="gps">GPS</string>
+    <string name="confirmar_destino">Confirmar Destino</string>
+    <string name="location_updated">Localización actualizada</string>
+    <string name="ok">OK</string>
+    <string name="key_map_tutorial">tutorialmap</string>
+    <string name="tutorial_key">keyorigin</string>
+    <string name="preference_tutorial">tutorial</string>
+    <string name="buscar_ubicacion">Buscar ubicación</string>
+    <string name="se_necesita_permiso">Se necesitan los permisos de ubicación</string>
+    <string name="gps_activado">Gps activado</string>
+    <string name="distancia">distance</string>
+    <string name="duracion">duration</string>
+    <string name="sin_permiso_gps">Está utilizando la app sin permisos de ubicación</string>
+    <string name="tiempo_estimado">Tiempo estimado</string>
+    <string name="distancia_estimada">Distancia estimada</string>
+    <string name="solicitar_ahora">Solicitar ahora</string>
+    <string name="buscando_conductor">Buscando conductor</string>
+    <string name="cancelar_servicio">cancelar Servicio</string>
+    <string name="solicitud">Solicitud</string>
+    <string name="alerta">Alerta</string>
+    <string name="no_conductor">No se encontró un conductor\nvuelva a intentarlo más tarde</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="conductor_encontrado">CONDUCTOR ENCONTRADO\nESPERANDO RESPUESTA</string>
+    <string name="no_se_encontro_conductor">NO SE ENCONTRO UN CONDUCTOR</string>
+    <string name="busqueda_en">Nueva Búsqueda\nen:</string>
+    <string name="txt_panico">Alerta\n</string>
+    <string name="txt_info">Información de la APP</string>
+    <string name="txt_excesos">Excesos de velocidad</string>
+    <string name="txt_rep_conductor">Reportar Conductor</string>
+    <string name="txt_mapa">Mapa</string>
+    <string name="txt_qr">Código QR</string>
+    <string name="txt_kmh">KM/H</string>
+    <string name="vacio">.....</string>
+    <string name="txt_tu_velocidad">Tu velocidad:</string>
 </resources>
