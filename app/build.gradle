@@ -86,4 +86,6 @@ dependencies {
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.3'
     //dar estilos a las pantallas... header redondeado
     implementation 'io.github.florent37:shapeofview:1.4.7'
+    //zxing camara qr
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
 }

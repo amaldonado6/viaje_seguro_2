@@ -1,7 +1,7 @@
 package com.aamaldonado.viaje.seguro.utpl.tft.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,7 +14,7 @@ import com.aamaldonado.viaje.seguro.utpl.tft.R;
 import com.aamaldonado.viaje.seguro.utpl.tft.activities.navigation.MainSelectOptionActivity;
 import com.aamaldonado.viaje.seguro.utpl.tft.activities.account.AccountManageActivity;
 import com.aamaldonado.viaje.seguro.utpl.tft.databinding.ActivityMainBinding;
-import com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.account.SessionVM;
+import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.SessionAccount;
 
 import java.util.Objects;
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         //animacion
         animation();
         /*inicializar los viewModel*/
-        SessionVM sessionVM = new ViewModelProvider(this).get(SessionVM.class);
+        SessionAccount sessionVM = new SessionAccount();
         timeForAnimation(sessionVM.getSessionExist());
     }
 

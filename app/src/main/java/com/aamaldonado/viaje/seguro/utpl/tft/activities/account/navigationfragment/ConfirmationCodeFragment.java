@@ -24,7 +24,7 @@ import android.widget.LinearLayout;
 import com.aamaldonado.viaje.seguro.utpl.tft.activities.MainActivity;
 import com.aamaldonado.viaje.seguro.utpl.tft.R;
 import com.aamaldonado.viaje.seguro.utpl.tft.databinding.FragmentConfirmationCodeBinding;
-import com.aamaldonado.viaje.seguro.utpl.tft.providers.AuthProvider;
+import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.AuthProvider;
 import com.aamaldonado.viaje.seguro.utpl.tft.utils.AlertComponents;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

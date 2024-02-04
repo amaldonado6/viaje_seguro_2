@@ -76,4 +76,7 @@
     <string name="txt_kmh">KM/H</string>
     <string name="vacio">.....</string>
     <string name="txt_tu_velocidad">Tu velocidad:</string>
+    <string name="datos_capturados">Datos capturados</string>
+    <string name="escaner_de_codigo_qr">ESCANER DE CODIGO QR</string>
+    <string name="escanea_un_registro">Por favor debe escanear un código QR para registrar los datos del vehículo</string>
 </resources>

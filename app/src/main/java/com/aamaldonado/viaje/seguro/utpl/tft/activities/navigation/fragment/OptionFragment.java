@@ -50,11 +50,21 @@ public class OptionFragment extends Fragment {
     }
 
     private void configLayout() {
+        //redirect navigation between Fragments
+
         //Card mapa
         binding.cardMapa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(requireView()).navigate(OptionFragmentDirections.actionOptionFragmentToMapFragment()); //redirect navigation between Fragments
+                Navigation.findNavController(requireView()).navigate(OptionFragmentDirections.actionOptionFragmentToMapFragment());
+            }
+        });
+
+        //QR
+        binding.cardQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(requireView()).navigate(OptionFragmentDirections.actionOptionFragmentToCodigoQrFragment());
             }
         });
     }

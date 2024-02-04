@@ -5,4 +5,7 @@ public final class Constants {
     public static final String ACTION_START_LOCATION_SERVICE = "startLocationService";
     public static final String ACTION_STOP_LOCATION_SERVICE = "stopLocationService";
     public static final  int REQUEST_CODA_LOCATION_PERMISSION = 1;
+
+    public static final String USER_ID = "user_id";
+    public static final String USER_DATA_REF = "user_data";
 }

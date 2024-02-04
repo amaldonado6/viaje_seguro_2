@@ -1,66 +1,91 @@
 package com.aamaldonado.viaje.seguro.utpl.tft.activities.navigation.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.aamaldonado.viaje.seguro.utpl.tft.R;
+import com.aamaldonado.viaje.seguro.utpl.tft.databinding.FragmentCodigoQrBinding;
+import com.aamaldonado.viaje.seguro.utpl.tft.model.account.UserCurrentData;
+import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.DataHandler;
+import com.aamaldonado.viaje.seguro.utpl.tft.utils.CaptureQr;
+import com.aamaldonado.viaje.seguro.utpl.tft.utils.ValidateData;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CodigoQrFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.Date;
+import java.util.Objects;
+
 public class CodigoQrFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FragmentCodigoQrBinding binding;
 
     public CodigoQrFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CodigoQrFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CodigoQrFragment newInstance(String param1, String param2) {
-        CodigoQrFragment fragment = new CodigoQrFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_codigo_qr, container, false);
+        binding = FragmentCodigoQrBinding.inflate(inflater,container,false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        configLayout();
+        binding.txtQr.setText(R.string.escanea_un_registro);
+        guardarDatos("");
+    }
+
+    private void configLayout() {
+        binding.btnQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scanQr();
+            }
+        });
+    }
+
+    private void scanQr() {
+        ScanOptions options = new ScanOptions();
+        options.setPrompt(getString(R.string.escaner_de_codigo_qr));
+        options.setBeepEnabled(false);
+        options.setOrientationLocked(true);
+        options.setCaptureActivity(CaptureQr.class);
+        barLauncher.launch(options);
+    }
+    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result->{
+       if(result.getContents() != null){
+           Toast.makeText(getActivity(), getString(R.string.datos_capturados), Toast.LENGTH_SHORT).show();
+           guardarDatos(result.getContents());
+       }
+    });
+
+    private void guardarDatos(String contents) {
+        UserCurrentData userCurrentData = new UserCurrentData();
+        userCurrentData.setFecha(ValidateData.getDate());
+        userCurrentData.setIdBus("IB123");
+        userCurrentData.setIdViaje("IV123");
+        DataHandler.getInstance().setCurrentClientData(userCurrentData);
     }
 }

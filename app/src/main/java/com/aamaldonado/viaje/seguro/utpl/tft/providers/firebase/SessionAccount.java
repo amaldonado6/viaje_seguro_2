@@ -1,13 +1,11 @@
-package com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.account;
+package com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase;
 
-import androidx.lifecycle.ViewModel;
+import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.AuthProvider;
 
-import com.aamaldonado.viaje.seguro.utpl.tft.providers.AuthProvider;
-
-public class SessionVM extends ViewModel {
+public class SessionAccount {
     private final AuthProvider authProvider; //provider
 
-    public SessionVM() {
+    public SessionAccount() {
         authProvider = new AuthProvider(); //inicializar el provider
     }
 
