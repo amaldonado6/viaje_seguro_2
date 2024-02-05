@@ -12,7 +12,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import java.util.concurrent.TimeUnit;
 
 public class AuthProvider {
-    private FirebaseAuth firebaseAuth;
+    private final FirebaseAuth firebaseAuth;
     /*constructor*/
     public  AuthProvider(){
         firebaseAuth = FirebaseAuth.getInstance();

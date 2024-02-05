@@ -21,6 +21,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -30,6 +31,7 @@ public class MapFragment extends Fragment {
     private Marker marker;
 
     private LocationViewModel locationViewModel;
+    private GoogleMap map;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -44,11 +46,19 @@ public class MapFragment extends Fragment {
          */
         @Override
         public void onMapReady(@NonNull GoogleMap googleMap) {
+            /*Set map settings*/
+            map = googleMap;
+            map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            map.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.style_map)); //nueva configuraciond el mapa
+            map.setTrafficEnabled(false);
+            map.setBuildingsEnabled(false);
             //Asignar la posicion en el mapa por medio de las coordenadas ya obtenidas
             locationViewModel.getLocationData().observe(getViewLifecycleOwner(), location -> {
                 if (marker != null) marker.remove();
                 LatLng coordenadas = new LatLng(location.getLatitude(), location.getLongitude());
-                marker = googleMap.addMarker(new MarkerOptions().position(coordenadas).title("Tu posición").icon(BitmapDescriptorFactory.fromResource(R.drawable.autobus)));
+                marker = googleMap.addMarker(new MarkerOptions().position(coordenadas).icon(BitmapDescriptorFactory.fromResource(R.drawable.autobus)));
+                marker.setTitle("Tu posición");
+                marker.showInfoWindow();
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordenadas,19));
             });
         }

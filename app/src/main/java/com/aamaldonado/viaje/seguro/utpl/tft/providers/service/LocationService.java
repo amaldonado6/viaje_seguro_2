@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.IBinder;
@@ -16,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.aamaldonado.viaje.seguro.utpl.tft.R;
 import com.aamaldonado.viaje.seguro.utpl.tft.model.sensors.Coordinates;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.DataHandler;
 import com.aamaldonado.viaje.seguro.utpl.tft.utils.ValidateData;
@@ -49,10 +51,13 @@ public class LocationService extends Service {
         if(Objects.nonNull(locationResult.getLastLocation())){
             locationData.setValue(locationResult.getLastLocation()); // set location to ViewModel
             //Store DB
+            locationResult.getLastLocation();
             Coordinates.getInstance().setLat(locationResult.getLastLocation().getLatitude());
             Coordinates.getInstance().setLng(locationResult.getLastLocation().getLongitude());
             Coordinates.getInstance().setSpeed(ValidateData.getSpeed(locationResult.getLastLocation()));
+            //user
             DataHandler.getInstance().setCurrentClientDataLatLng(Coordinates.getInstance());
+            //bus
             DataHandler.getInstance().setCurrentClientDataToBus(Coordinates.getInstance());
         }
     }

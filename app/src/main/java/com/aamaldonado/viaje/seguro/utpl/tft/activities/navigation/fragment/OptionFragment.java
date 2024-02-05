@@ -67,5 +67,13 @@ public class OptionFragment extends Fragment {
                 Navigation.findNavController(requireView()).navigate(OptionFragmentDirections.actionOptionFragmentToCodigoQrFragment());
             }
         });
+
+        //Reports
+        binding.cardExcesos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(requireView()).navigate(OptionFragmentDirections.actionOptionFragmentToExcesosFragment());
+            }
+        });
     }
 }

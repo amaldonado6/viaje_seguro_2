@@ -6,7 +6,11 @@ public class Coordinates {
     private static Coordinates INSTANCE;
     Double lat;
     Double lng;
-    String speed;
+    Double speed;
+
+    String idExceso;
+
+    Boolean checkExceso;
 
     private Coordinates() {
     }
@@ -34,11 +38,27 @@ public class Coordinates {
         this.lng = lng;
     }
 
-    public String getSpeed() {
+    public Double getSpeed() {
         return speed;
     }
 
-    public void setSpeed(String speed) {
+    public void setSpeed(Double speed) {
         this.speed = speed;
+    }
+
+    public String getIdExceso() {
+        return idExceso;
+    }
+
+    public void setIdExceso(String idExceso) {
+        this.idExceso = idExceso;
+    }
+
+    public Boolean getCheckExceso() {
+        return checkExceso;
+    }
+
+    public void setCheckExceso(Boolean checkExceso) {
+        this.checkExceso = checkExceso;
     }
 }

@@ -51,7 +51,7 @@ public class MainSelectOptionActivity extends AppCompatActivity {
         //Observer
         locationViewModel.getLocationData().observe(this, loc -> {
             //Asignar la velocidad
-            binding.velocidadActual.setText(ValidateData.getSpeed(loc));
+            binding.velocidadActual.setText(String.valueOf(ValidateData.getSpeed(loc)));
         });
     }
 
