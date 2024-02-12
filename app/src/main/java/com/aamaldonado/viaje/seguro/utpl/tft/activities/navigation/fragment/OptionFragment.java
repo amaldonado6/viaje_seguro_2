@@ -13,7 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.aamaldonado.viaje.seguro.utpl.tft.databinding.FragmentOptionBinding;
+import com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.DbViewModel.DataBaseViewModel;
 import com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.sensors.LocationViewModel;
 
 import java.util.Objects;
@@ -22,6 +25,8 @@ import java.util.Objects;
 public class OptionFragment extends Fragment {
 
     private FragmentOptionBinding binding;
+
+    private DataBaseViewModel dataBaseViewModel;
 
 
 
@@ -32,6 +37,7 @@ public class OptionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dataBaseViewModel = new ViewModelProvider(requireActivity()).get(DataBaseViewModel.class);
     }
 
     @Override
@@ -50,8 +56,19 @@ public class OptionFragment extends Fragment {
     }
 
     private void configLayout() {
+        //Contador de exesos de velocidad en el cardview
+        dataBaseViewModel.getExcesosList().observe(getViewLifecycleOwner(),observer->{
+            if(observer != null){
+                int countEx = observer.size();
+                if(countEx == 0){
+                    binding.counterEx.setVisibility(View.GONE);
+                }else{
+                    binding.counterEx.setVisibility(View.VISIBLE);
+                    binding.counterEx.setText(String.valueOf(observer.size()));
+                }
+            }
+        });
         //redirect navigation between Fragments
-
         //Card mapa
         binding.cardMapa.setOnClickListener(new View.OnClickListener() {
             @Override

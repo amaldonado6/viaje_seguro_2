@@ -118,6 +118,8 @@ public class DataHandler {
     }
 
     public void getExcesos(ChildEventListener valueEventListener) {
+        idBus="IB123";
+        idViaje="IV123";
         if (!Strings.isNullOrEmpty(idBus) && !Strings.isNullOrEmpty(idViaje)) {
             DatabaseReference excesosRef = mDatabase.getReference(Constants.BUS_DATA_REF)
                     .child(idBus)
@@ -125,6 +127,17 @@ public class DataHandler {
                     .child(ValidateData.getDateTime(false))
                     .child(idViaje);
             excesosRef.addChildEventListener(valueEventListener);
+        }
+
+    }
+    public void getExcesos2(ValueEventListener valueEventListener) {
+        if (!Strings.isNullOrEmpty(idBus) && !Strings.isNullOrEmpty(idViaje)) {
+            DatabaseReference excesosRef = mDatabase.getReference(Constants.BUS_DATA_REF)
+                    .child(idBus)
+                    .child(Constants.CHILD_REPORTS)
+                    .child(ValidateData.getDateTime(false))
+                    .child(idViaje);
+            excesosRef.addValueEventListener(valueEventListener);
         }
 
     }

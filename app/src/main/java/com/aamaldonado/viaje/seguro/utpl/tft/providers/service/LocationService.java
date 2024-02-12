@@ -52,13 +52,14 @@ public class LocationService extends Service {
             locationData.setValue(locationResult.getLastLocation()); // set location to ViewModel
             //Store DB
             locationResult.getLastLocation();
-            Coordinates.getInstance().setLat(locationResult.getLastLocation().getLatitude());
-            Coordinates.getInstance().setLng(locationResult.getLastLocation().getLongitude());
-            Coordinates.getInstance().setSpeed(ValidateData.getSpeed(locationResult.getLastLocation()));
+            Coordinates coordinates = new Coordinates();
+            coordinates.setLat(Objects.requireNonNull(locationResult.getLastLocation()).getLatitude());
+            coordinates.setLng(Objects.requireNonNull(locationResult.getLastLocation()).getLongitude());
+            coordinates.setSpeed(ValidateData.getSpeed(Objects.requireNonNull(locationResult.getLastLocation())));
             //user
-            DataHandler.getInstance().setCurrentClientDataLatLng(Coordinates.getInstance());
+            DataHandler.getInstance().setCurrentClientDataLatLng(coordinates);
             //bus
-            DataHandler.getInstance().setCurrentClientDataToBus(Coordinates.getInstance());
+            DataHandler.getInstance().setCurrentClientDataToBus(coordinates);
         }
     }
 

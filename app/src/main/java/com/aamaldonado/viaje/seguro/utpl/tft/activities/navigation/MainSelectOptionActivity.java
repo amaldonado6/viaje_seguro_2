@@ -23,6 +23,7 @@ import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.AuthProvider;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.LocationPermissionChecker;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.service.BackgroundService;
 import com.aamaldonado.viaje.seguro.utpl.tft.utils.ValidateData;
+import com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.DbViewModel.DataBaseViewModel;
 import com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.sensors.LocationViewModel;
 
 public class MainSelectOptionActivity extends AppCompatActivity {
@@ -30,6 +31,8 @@ public class MainSelectOptionActivity extends AppCompatActivity {
     private ActivityMainSelectOptionBinding binding;
 
     private LocationViewModel locationViewModel;
+
+    private DataBaseViewModel dataBaseViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +42,21 @@ public class MainSelectOptionActivity extends AppCompatActivity {
         setContentView(view);
         //Location viewModel
         locationViewModel = new ViewModelProvider(this).get(LocationViewModel.class);
+        //
+        dataBaseViewModel = new ViewModelProvider(this).get(DataBaseViewModel.class);
         //get location
         iniciarLocation();
         //configuracion del layout
         configLayout();
+        //
+        getExcesos();
+    }
+
+    private void getExcesos() {
+        dataBaseViewModel.loadData();
+        dataBaseViewModel.getExcesos().observe(this, exceso->{
+            Toast.makeText(this, "MAIN", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void configLayout() {

@@ -3,24 +3,17 @@ package com.aamaldonado.viaje.seguro.utpl.tft.model.sensors;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.DataHandler;
 
 public class Coordinates {
-    private static Coordinates INSTANCE;
-    Double lat;
-    Double lng;
-    Double speed;
+    private Double lat;
+    private Double lng;
+    private Double speed;
 
-    String idExceso;
+    private String idExceso;
 
-    Boolean checkExceso;
+    private Boolean checkExceso;
 
-    private Coordinates() {
+    public Coordinates() {
     }
 
-    public static Coordinates getInstance(){
-        if(INSTANCE == null){
-            INSTANCE = new Coordinates();
-        }
-        return INSTANCE;
-    }
 
     public Double getLat() {
         return lat;

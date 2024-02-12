@@ -13,20 +13,32 @@ import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.SessionAccount;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+
+import org.checkerframework.checker.units.qual.A;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class DataBaseViewModel extends ViewModel {
 
     private MutableLiveData<Coordinates> exceso;
+    private MutableLiveData<List<Coordinates>> excesosList;
 
     public DataBaseViewModel(){
         exceso = new MutableLiveData<>();
-        loadData();
+        excesosList = new MutableLiveData<>();
+        excesosList.setValue(new ArrayList<>());
     }
 
     public LiveData<Coordinates> getExcesos(){
         return exceso;
     }
+
+    public LiveData<List<Coordinates>> getExcesosList(){
+        return excesosList;
+    }
+
 
     /**
      * Metodo para cargar los datos de los excesos de velocidad e ir capturando continuamente nuevos excesos
@@ -68,12 +80,18 @@ public class DataBaseViewModel extends ViewModel {
         SessionAccount sessionAccount = new SessionAccount();
         //Solo agregar los excesos capturados del usuario
         if(parts[0].equals(sessionAccount.getUser())){
-            Coordinates.getInstance().setLng(Double.valueOf(Objects.requireNonNull(snapshot.child(Constants.DB_LAT).getValue()).toString()));
-            Coordinates.getInstance().setLng(Double.valueOf(Objects.requireNonNull(snapshot.child(Constants.DB_LNG).getValue()).toString()));
-            Coordinates.getInstance().setSpeed(Double.valueOf(Objects.requireNonNull(snapshot.child(Constants.DB_SPEED).getValue()).toString()));
-            Coordinates.getInstance().setCheckExceso(Boolean.valueOf(Objects.requireNonNull(snapshot.child(Constants.DB_CHECK_EXCESO).getValue()).toString()));
-            Coordinates.getInstance().setIdExceso(snapshot.getKey());
-            exceso.setValue(Coordinates.getInstance());
+            Coordinates coordinates = new Coordinates();
+            coordinates.setLat(Double.valueOf(Objects.requireNonNull(snapshot.child(Constants.DB_LAT).getValue()).toString()));
+            coordinates.setLng(Double.valueOf(Objects.requireNonNull(snapshot.child(Constants.DB_LNG).getValue()).toString()));
+            coordinates.setSpeed(Double.valueOf(Objects.requireNonNull(snapshot.child(Constants.DB_SPEED).getValue()).toString()));
+            coordinates.setCheckExceso(Boolean.valueOf(Objects.requireNonNull(snapshot.child(Constants.DB_CHECK_EXCESO).getValue()).toString()));
+            coordinates.setIdExceso(snapshot.getKey());
+            exceso.setValue(coordinates);
+            List<Coordinates> listaActual = getExcesosList().getValue();
+            if(listaActual!= null) {
+                listaActual.add(coordinates);
+                excesosList.setValue(listaActual);
+            }
         }
     }
 }
