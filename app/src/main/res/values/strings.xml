@@ -69,15 +69,17 @@
     <string name="busqueda_en">Nueva Búsqueda\nen:</string>
     <string name="txt_panico">Alerta\n</string>
     <string name="txt_info">Información de la APP</string>
-    <string name="txt_excesos">Excesos de velocidad</string>
+    <string name="txt_excesos">Excesos de velocidad: </string>
     <string name="txt_rep_conductor">Reportar Conductor</string>
     <string name="txt_mapa">Mapa</string>
     <string name="txt_qr">Código QR</string>
-    <string name="txt_kmh">KM/H</string>
+    <string name="txt_kmh"> KM/H</string>
     <string name="vacio">.....</string>
     <string name="txt_tu_velocidad">Tu velocidad:</string>
     <string name="datos_capturados">Datos capturados</string>
     <string name="escaner_de_codigo_qr">ESCANER DE CODIGO QR</string>
     <string name="escanea_un_registro">Por favor debe escanear un código QR para registrar los datos del vehículo</string>
     <string name="bus_data">bus_data</string>
+    <string name="txt_exceso_reportado">Exceso de velocidad reportado.</string>
+    <string name="txt_exceso_anulado">Reporte anulado</string>
 </resources>

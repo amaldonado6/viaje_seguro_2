@@ -25,24 +25,24 @@ public class DataBaseViewModel extends ViewModel {
     private MutableLiveData<Coordinates> exceso;
     private MutableLiveData<List<Coordinates>> excesosList;
 
-    public DataBaseViewModel(){
+    public DataBaseViewModel() {
         exceso = new MutableLiveData<>();
         excesosList = new MutableLiveData<>();
         excesosList.setValue(new ArrayList<>());
     }
 
-    public LiveData<Coordinates> getExcesos(){
+    public LiveData<Coordinates> getExcesos() {
         return exceso;
     }
 
-    public LiveData<List<Coordinates>> getExcesosList(){
+    public LiveData<List<Coordinates>> getExcesosList() {
         return excesosList;
     }
 
 
     /**
      * Metodo para cargar los datos de los excesos de velocidad e ir capturando continuamente nuevos excesos
-     * */
+     */
     public void loadData() {
         DataHandler.getInstance().getExcesos(new ChildEventListener() {
             @Override
@@ -74,12 +74,12 @@ public class DataBaseViewModel extends ViewModel {
 
     /**
      * metodo para asignar el valor del exeso capturado
-     * */
+     */
     private void setExcesos(DataSnapshot snapshot) {
         String[] parts = Objects.requireNonNull(snapshot.getKey()).split(Constants.SEPARATE_CHARACTER);
         SessionAccount sessionAccount = new SessionAccount();
         //Solo agregar los excesos capturados del usuario
-        if(parts[0].equals(sessionAccount.getUser())){
+        if (parts[0].equals(sessionAccount.getUser())) {
             Coordinates coordinates = new Coordinates();
             coordinates.setLat(Double.valueOf(Objects.requireNonNull(snapshot.child(Constants.DB_LAT).getValue()).toString()));
             coordinates.setLng(Double.valueOf(Objects.requireNonNull(snapshot.child(Constants.DB_LNG).getValue()).toString()));
@@ -88,9 +88,18 @@ public class DataBaseViewModel extends ViewModel {
             coordinates.setIdExceso(snapshot.getKey());
             exceso.setValue(coordinates);
             List<Coordinates> listaActual = getExcesosList().getValue();
-            if(listaActual!= null) {
-                listaActual.add(coordinates);
-                excesosList.setValue(listaActual);
+            if (listaActual != null) {
+                Boolean isUpdate = true;
+                for (Coordinates searchCoord : listaActual) {
+                    if (searchCoord.getIdExceso().equals(coordinates.getIdExceso())) {
+                        searchCoord.setCheckExceso(coordinates.getCheckExceso());
+                        isUpdate = false;
+                    }
+                }
+                if (isUpdate) {
+                    listaActual.add(coordinates);
+                    excesosList.setValue(listaActual);
+                }
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.aamaldonado.viaje.seguro.utpl.tft.activities.navigation.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -8,10 +9,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,23 +26,14 @@ import com.aamaldonado.viaje.seguro.utpl.tft.databinding.FragmentExcesosBinding;
 import com.aamaldonado.viaje.seguro.utpl.tft.model.sensors.Coordinates;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.DataHandler;
 import com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.DbViewModel.DataBaseViewModel;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
 public class ExcesosFragment extends Fragment {
-
-    private LinearLayout contenedorSwitches;
     private FragmentExcesosBinding binding;
-    private Switch switchNuevo;
-    DataBaseViewModel dataBaseViewModel;
+    private DataBaseViewModel dataBaseViewModel;
 
-    private Observer<Coordinates> observer;
-
-    private ChildEventListener mChildEventListener;
+    private Observer<List<Coordinates>> observer;
 
     public ExcesosFragment() {
         // Required empty public constructor
@@ -51,11 +43,12 @@ public class ExcesosFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //inicializar el viewmodel
         dataBaseViewModel = new ViewModelProvider(requireActivity()).get(DataBaseViewModel.class);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentExcesosBinding.inflate(inflater, container, false);
@@ -65,49 +58,55 @@ public class ExcesosFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //configuraciones iniciales
         configLayout();
     }
 
     private void configLayout() {
-        contenedorSwitches = binding.contenedorSwitches;
-        //Observa los cambios de los excesos de velocidad
-        List<Coordinates> excesosList = dataBaseViewModel.getExcesosList().getValue();
-        if (excesosList != null) {
-            for (Coordinates exceso : excesosList) {
-                agregarSwitch(exceso);
+        //Configurar el observer cuando se crea la vista
+        observer = new Observer<List<Coordinates>>() {
+            @Override
+            public void onChanged(List<Coordinates> coordinates) {
+                if (coordinates != null) {
+                    binding.contenedorSwitches.removeAllViews(); //limpiar toda la lista de excesos
+                    for (Coordinates exceso : coordinates) {
+                        //Agregar un switch por cada exceso de velocidad
+                        agregarSwitch(exceso);
+                    }
+                }
             }
-        }
-
-
-        dataBaseViewModel.getExcesos().observe(requireActivity(), data -> {
-            if(data != null){
-                //agregarSwitch(data);
-            }
-        });
-
+        };
+        dataBaseViewModel.getExcesosList().observe(requireActivity(), observer);
     }
 
-    private void agregarSwitch(Coordinates coordinates){
-        switchNuevo = new Switch(getContext());
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    private void agregarSwitch(Coordinates coordinates) {
+        //configurar el nuevo boton
+        Switch switchNuevo = new Switch(getContext());
         switchNuevo.setBackgroundResource(R.drawable.style_switch);
         switchNuevo.setTextColor(Color.WHITE);
         switchNuevo.setTypeface(null, Typeface.BOLD);
-        switchNuevo.setText("\nExceso de velocidad: " + coordinates.getSpeed() + " Km/h\n");
+        switchNuevo.setText(getString(R.string.txt_excesos).concat("\n").concat(String.valueOf(coordinates.getSpeed())).concat(getString(R.string.txt_kmh)));
+        switchNuevo.setGravity(View.TEXT_ALIGNMENT_CENTER);
         switchNuevo.setTag(coordinates.getIdExceso());
+        switchNuevo.setGravity(Gravity.CENTER);
+        //asignar el estado del reporte
+        switchNuevo.setChecked(coordinates.getCheckExceso() != null ? coordinates.getCheckExceso() : Boolean.FALSE);
+        switchNuevo.setTextOn("Encendido");
         // nuevo objeto LayoutParams
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
         // Configura los márgenes del LayoutParams
         layoutParams.setMargins(10, 10, 10, 10);
         // Aplica los LayoutParams al botón switch
         switchNuevo.setLayoutParams(layoutParams);
         // Crea un ColorStateList
-        int[][] states = new int[][] {
-                new int[] { android.R.attr.state_checked}, // checked
-                new int[] {-android.R.attr.state_checked}, // unchecked
+        int[][] states = new int[][]{
+                new int[]{android.R.attr.state_checked}, // checked
+                new int[]{-android.R.attr.state_checked}, // unchecked
         };
-        int[] colors = new int[] {
+        int[] colors = new int[]{
                 Color.WHITE, // The color for the checked state
                 Color.LTGRAY, // The color for the unchecked state
         };
@@ -116,13 +115,19 @@ public class ExcesosFragment extends Fragment {
         switchNuevo.setTrackTintList(myList);
         switchNuevo.setThumbTintList(myList);
         // Crear
-        contenedorSwitches.addView(switchNuevo);
+        binding.contenedorSwitches.addView(switchNuevo);
 
         //Accion del switchh
         switchNuevo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast.makeText(getContext(), "" + buttonView.getTag(), Toast.LENGTH_SHORT).show();
+                if (isChecked) {
+                    Toast.makeText(getContext(), getString(R.string.txt_exceso_reportado), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.txt_exceso_anulado), Toast.LENGTH_SHORT).show();
+                }
+                DataHandler.getInstance().setEstadoDelExcesoDeVelocidad(isChecked, String.valueOf(buttonView.getTag()));
+
             }
         });
     }
@@ -130,6 +135,7 @@ public class ExcesosFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        //DataHandler.getInstance().getExcesos2(rem);
+        // remover el observador
+        dataBaseViewModel.getExcesosList().removeObserver(observer);
     }
 }

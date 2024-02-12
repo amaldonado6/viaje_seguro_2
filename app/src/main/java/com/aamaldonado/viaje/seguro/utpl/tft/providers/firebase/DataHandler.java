@@ -73,7 +73,7 @@ public class DataHandler {
 
 
     /**
-     * Metodo para actualizar los datos individuales del usuario, en que transporte se encuentra
+     * Metodo para actualizar los datos individuales del usuario en un transporte (en el nodo del transporte)
      */
     public void setCurrentClientData(UserCurrentData data) {
         if (sessionVM.getSessionExist()) {
@@ -89,7 +89,7 @@ public class DataHandler {
     }
 
     /**
-     * Metodo para actualizar los datos individuales del usuario (ubicacion)
+     * Metodo para actualizar los datos individuales del usuario (ubicacion en su propio nodo)
      */
     public void setCurrentClientDataLatLng(Coordinates coordinates) {
         if (sessionVM.getSessionExist()) {
@@ -102,7 +102,7 @@ public class DataHandler {
     }
 
     /**
-     * Methodo para registrar los excesos de velocidad capturados en el transcurso del viaje
+     * Metodo para registrar los excesos de velocidad capturados en el transcurso del viaje
      */
     public void setCurrentClientDataToBus(Coordinates coordinates) {
         if (!Strings.isNullOrEmpty(idBus) && !Strings.isNullOrEmpty(idViaje) && coordinates.getSpeed() >= 90) {
@@ -117,9 +117,12 @@ public class DataHandler {
         }
     }
 
+    /**
+     * Metodo para obtener los excesos de velocidad individuales que se capturaron en el transcurso del viaje
+     */
     public void getExcesos(ChildEventListener valueEventListener) {
-        idBus="IB123";
-        idViaje="IV123";
+        idBus = "IB123";
+        idViaje = "IV123";
         if (!Strings.isNullOrEmpty(idBus) && !Strings.isNullOrEmpty(idViaje)) {
             DatabaseReference excesosRef = mDatabase.getReference(Constants.BUS_DATA_REF)
                     .child(idBus)
@@ -130,15 +133,24 @@ public class DataHandler {
         }
 
     }
-    public void getExcesos2(ValueEventListener valueEventListener) {
-        if (!Strings.isNullOrEmpty(idBus) && !Strings.isNullOrEmpty(idViaje)) {
-            DatabaseReference excesosRef = mDatabase.getReference(Constants.BUS_DATA_REF)
-                    .child(idBus)
-                    .child(Constants.CHILD_REPORTS)
-                    .child(ValidateData.getDateTime(false))
-                    .child(idViaje);
-            excesosRef.addValueEventListener(valueEventListener);
-        }
 
+    /**
+     * Metodo para actualizar los datos individuales del usuario (ubicacion en su propio nodo)
+     */
+    public void setEstadoDelExcesoDeVelocidad(Boolean status,String key) {
+        DatabaseReference newRef = mDatabase.getReference(Constants.BUS_DATA_REF)
+                .child(idBus)
+                .child(Constants.CHILD_REPORTS)
+                .child(ValidateData.getDateTime(false))
+                .child(idViaje)
+                .child(key);
+        if (sessionVM.getSessionExist()) {
+            // Crea un mapa con los campos que quieres actualizar
+            Map<String, Object> updates = new HashMap<>();
+            updates.put("checkExceso", status);
+            // Actualiza los campos del usuario en la base de datos
+            newRef.updateChildren(updates);
+        }
     }
+
 }
