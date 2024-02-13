@@ -28,4 +28,6 @@ public final class Constants {
     public static final String ALERT_PANIC_DATA = "alert_panic_data";
     public static final String TAG1 = "TAG1";
     public static final String MENSAJE_ERROR_BDD = "Error al leer valores de la bdd.";
+    public static final String FORMATO_DATE_HORA = "dd-MM-yyyy HH:mm";
+    public static final String FORMATO_DATE = "dd-MM-yyyy";
 }

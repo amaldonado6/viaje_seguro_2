@@ -1,12 +1,10 @@
 package com.aamaldonado.viaje.seguro.utpl.tft.activities.account.navigationfragment;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -20,7 +18,6 @@ import com.aamaldonado.viaje.seguro.utpl.tft.R;
 import com.aamaldonado.viaje.seguro.utpl.tft.databinding.FragmentValidatePhoneBinding;
 import com.aamaldonado.viaje.seguro.utpl.tft.utils.AlertComponents;
 import com.aamaldonado.viaje.seguro.utpl.tft.utils.PhoneValidate;
-import com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.account.ValidatePhoneVM;
 import com.google.android.material.textfield.TextInputEditText;
 import com.hbb20.CountryCodePicker;
 
@@ -29,8 +26,6 @@ public class ValidatePhoneFragment extends Fragment {
     private TextInputEditText phoneB;
     private CountryCodePicker countryCodeB;
     private FragmentValidatePhoneBinding binding;
-    /*viewModel*/
-    private ValidatePhoneVM viewModel;
 
     public ValidatePhoneFragment() {
         // Required empty public constructor

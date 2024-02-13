@@ -80,7 +80,7 @@
     <string name="escaner_de_codigo_qr">ESCANER DE CODIGO QR</string>
     <string name="escanea_un_registro">Por favor debe escanear un código QR para registrar los datos del vehículo</string>
     <string name="bus_data">bus_data</string>
-    <string name="txt_exceso_reportado">Exceso de velocidad reportado.</string>
+    <string name="txt_exceso_reportado"></string>
     <string name="txt_exceso_anulado">Reporte anulado</string>
     <string name="mostrar_ubicacion">Mostrar ubicación</string>
     <string name="tu_posicion">Tu posición</string>
@@ -104,4 +104,5 @@
     <string name="default_value_whitout_direction">...</string>
     <string name="txt_ubicaci_n">Ubicación:</string>
     <string name="compartir_ubicaci_n">Compartir Ubicación</string>
+    <string name="sharing_id">"\nID del usurio: "</string>
 </resources>

@@ -1,14 +1,18 @@
 package com.aamaldonado.viaje.seguro.utpl.tft.utils;
 
 import android.location.Location;
-import android.util.Patterns;
+
+import com.aamaldonado.viaje.seguro.utpl.tft.common.Constants;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public final class ValidateData {
+
+    private ValidateData(){}
 
     public static double getSpeed(Location location) {
         double sp = 0.0;
@@ -23,39 +27,18 @@ public final class ValidateData {
         return Double.parseDouble(speedFormat.format(sp));
     }
 
-    public boolean validateMail(String mail) {
-        boolean valor = false;
-        //verificar mail
-        if (!mail.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
-            //verificar nombre
-            valor = true;
-        }
-        return valor;
-    }
-
-    public boolean validateName(String name) {
-        boolean valor = false;
-        //verificar mail
-        if (!name.isEmpty() && name.length() > 3) {
-            //verificar nombre
-            valor = true;
-        }
-        return valor;
-    }
-
     public static String getDateTime(Boolean time) {
         // Crear un objeto Date
         Date date = new Date();
         // Asignar el nuevo formato
         SimpleDateFormat formatter;
-        if (time) {
-            formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        if (Boolean.TRUE.equals(time)) {
+            formatter = new SimpleDateFormat(Constants.FORMATO_DATE_HORA,new Locale("es","ES"));
         } else {
-            formatter = new SimpleDateFormat("dd-MM-yyyy");
+            formatter = new SimpleDateFormat(Constants.FORMATO_DATE,new Locale("es","ES"));
         }
         // Convertir el objeto Date a String
-        String strDate = formatter.format(date);
-        return strDate;
+        return formatter.format(date);
     }
 
     public static String getTime() {

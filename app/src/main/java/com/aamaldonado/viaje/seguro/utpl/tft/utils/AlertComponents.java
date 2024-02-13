@@ -2,14 +2,11 @@ package com.aamaldonado.viaje.seguro.utpl.tft.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import com.aamaldonado.viaje.seguro.utpl.tft.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 public class AlertComponents {
@@ -25,7 +22,7 @@ public class AlertComponents {
     }
 
     public void setSnakbar(View view, String description) {
-        Snackbar snackbar = Snackbar.make(view, description, Snackbar.LENGTH_LONG).setDuration(4000);
+        Snackbar snackbar = Snackbar.make(view, description, BaseTransientBottomBar.LENGTH_LONG).setDuration(4000);
         snackbar.show();
     }
 }

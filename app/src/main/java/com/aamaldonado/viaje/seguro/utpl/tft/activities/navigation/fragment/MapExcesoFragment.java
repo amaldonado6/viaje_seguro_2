@@ -7,11 +7,13 @@ import androidx.fragment.app.Fragment;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.aamaldonado.viaje.seguro.utpl.tft.R;
+import com.aamaldonado.viaje.seguro.utpl.tft.common.Constants;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -54,13 +56,11 @@ public class MapExcesoFragment extends Fragment {
         List<Address> addresses = null;
         try {
             addresses = geocoder.getFromLocation(lat, lng, 1);
-        } catch (IOException ioException) {
-            // Error de red u otro error de E/S
-        } catch (IllegalArgumentException illegalArgumentException) {
-            // Latitud o longitud no válidas
+        } catch (IOException | IllegalArgumentException ioException) {
+            Log.d(Constants.TAG1, Objects.requireNonNull(ioException.getMessage()));
         }
         // Maneja el caso en el que no se encontró ninguna dirección.
-        if (addresses == null || addresses.size() == 0) {
+        if (addresses == null || addresses.isEmpty()) {
             direccionCompleta = getString(R.string.txt_exceso_reportado);
         } else {
             Address address = addresses.get(0);

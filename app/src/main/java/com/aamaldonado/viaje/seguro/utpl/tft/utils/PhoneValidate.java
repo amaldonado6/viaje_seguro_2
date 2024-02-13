@@ -1,6 +1,8 @@
 package com.aamaldonado.viaje.seguro.utpl.tft.utils;
 
 public final class PhoneValidate {
+
+    private PhoneValidate(){}
     public static boolean dataModelPhone(String phone) {
         // Comprobamos que la cadena solo contenga dígitos
         if (!phone.matches("\\d+")) {

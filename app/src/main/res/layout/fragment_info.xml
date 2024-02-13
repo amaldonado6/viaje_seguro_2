@@ -134,14 +134,13 @@
         <TextView
             android:id="@+id/share_ubicacion"
             android:layout_width="173dp"
-            android:layout_height="41dp"
+            android:layout_height="91dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="219dp"
-            android:layout_marginTop="243dp"
             android:layout_marginEnd="19dp"
-            android:layout_marginBottom="209dp"
+            android:layout_marginBottom="160dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@string/default_value_whitout_direction"
@@ -171,17 +170,16 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="116dp"
-            android:layout_marginTop="398dp"
-            android:layout_marginEnd="93dp"
-            android:layout_marginBottom="147dp"
+            android:layout_marginStart="121dp"
+            android:layout_marginTop="456dp"
+            android:layout_marginEnd="88dp"
+            android:layout_marginBottom="84dp"
             android:background="@drawable/btn_bg"
             android:backgroundTint="@color/cardview_dark_background"
             android:text="@string/compartir_ubicaci_n"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
