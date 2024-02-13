@@ -48,15 +48,6 @@ public class MainSelectOptionActivity extends AppCompatActivity {
         iniciarLocation();
         //configuracion del layout
         configLayout();
-        //
-        getExcesos();
-    }
-
-    private void getExcesos() {
-        dataBaseViewModel.loadData();
-        dataBaseViewModel.getExcesos().observe(this, exceso->{
-            Toast.makeText(this, "MAIN", Toast.LENGTH_SHORT).show();
-        });
     }
 
     private void configLayout() {

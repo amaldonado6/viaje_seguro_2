@@ -81,15 +81,16 @@ public class DataBaseViewModel extends ViewModel {
         //Solo agregar los excesos capturados del usuario
         if (parts[0].equals(sessionAccount.getUser())) {
             Coordinates coordinates = new Coordinates();
-            coordinates.setLat(Double.valueOf(Objects.requireNonNull(snapshot.child(Constants.DB_LAT).getValue()).toString()));
-            coordinates.setLng(Double.valueOf(Objects.requireNonNull(snapshot.child(Constants.DB_LNG).getValue()).toString()));
-            coordinates.setSpeed(Double.valueOf(Objects.requireNonNull(snapshot.child(Constants.DB_SPEED).getValue()).toString()));
+            coordinates.setLat(Double.parseDouble(Objects.requireNonNull(snapshot.child(Constants.DB_LAT).getValue()).toString()));
+            coordinates.setLng(Double.parseDouble(Objects.requireNonNull(snapshot.child(Constants.DB_LNG).getValue()).toString()));
+            coordinates.setSpeed(Double.parseDouble(Objects.requireNonNull(snapshot.child(Constants.DB_SPEED).getValue()).toString()));
             coordinates.setCheckExceso(Boolean.valueOf(Objects.requireNonNull(snapshot.child(Constants.DB_CHECK_EXCESO).getValue()).toString()));
             coordinates.setIdExceso(snapshot.getKey());
             exceso.setValue(coordinates);
             List<Coordinates> listaActual = getExcesosList().getValue();
             if (listaActual != null) {
-                Boolean isUpdate = true;
+                boolean isUpdate = true;
+                //Si el id del reporte existe es porque se va a actualizar el valor, si no existe añade uno nuevo
                 for (Coordinates searchCoord : listaActual) {
                     if (searchCoord.getIdExceso().equals(coordinates.getIdExceso())) {
                         searchCoord.setCheckExceso(coordinates.getCheckExceso());

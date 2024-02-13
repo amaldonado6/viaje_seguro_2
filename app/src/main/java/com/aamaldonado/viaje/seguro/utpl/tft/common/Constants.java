@@ -10,6 +10,7 @@ public final class Constants {
     public static final String USER_DATA_REF = "user_data";
     public static final String BUS_DATA_REF = "bus_data";
     public static final String CHILD_REPORTS = "reports";
+    public static final String CHILD_PERSONAL_REPORTS = "personal_reports";
     public static final String ID_BUS = "idbus";
     public static final String ID_VIAJE = "idviaje";
     public static final String DB_LAT = "lat";

@@ -7,6 +7,8 @@ public class UserCurrentData {
     String idBus;
     String idViaje;
 
+    String idCompania;
+
     public UserCurrentData() {
     }
 
@@ -32,5 +34,13 @@ public class UserCurrentData {
 
     public void setIdViaje(String idViaje) {
         this.idViaje = idViaje;
+    }
+
+    public String getIdCompania() {
+        return idCompania;
+    }
+
+    public void setIdCompania(String idCompania) {
+        this.idCompania = idCompania;
     }
 }

@@ -247,7 +247,6 @@
             android:foreground="?selectableItemBackground"
             app:cardCornerRadius="12dp"
             app:cardElevation="9dp"
-            android:onClick="openDialog"
             tools:ignore="OnClick">
 
             <androidx.appcompat.widget.LinearLayoutCompat

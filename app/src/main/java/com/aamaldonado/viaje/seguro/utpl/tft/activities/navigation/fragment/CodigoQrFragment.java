@@ -84,6 +84,7 @@ public class CodigoQrFragment extends Fragment {
         userCurrentData.setFecha(ValidateData.getDateTime(true));
         userCurrentData.setIdBus("IB123");
         userCurrentData.setIdViaje("IV123");
+        userCurrentData.setIdCompania("IDCOMP1");
         // store DB
         DataHandler.getInstance().setCurrentClientData(userCurrentData);
     }

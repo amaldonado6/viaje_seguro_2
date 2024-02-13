@@ -85,4 +85,13 @@
     <string name="mostrar_ubicacion">Mostrar ubicación</string>
     <string name="tu_posicion">Tu posición</string>
     <string name="permiso_denegado">Permisos denegados</string>
+    <string name="imagen_de_titulo_1_reporte">imagen de titulo 1 reporte</string>
+    <string name="reporte">Reporte</string>
+    <string name="guardar_datos">Guardar Datos</string>
+    <string name="conductor_rebasa_en_nlugares_inapropiados">Conductor rebasa en\nlugares inapropiados</string>
+    <string name="buen_servicio">Buen servicio</string>
+    <string name="recoge_pasajeros_fuera_ndel_area_de_embarque">Recoge pasajeros fuera\ndel área de embarque</string>
+    <string name="se_mantiene_el_veh_culo_nestacionado_mucho_tiempo">Se mantiene el vehículo\nestacionado mucho tiempo</string>
+    <string name="para_a_recargar_combustible">Para a recargar combustible</string>
+    <string name="reporte_enviado">Reporte enviado</string>
 </resources>

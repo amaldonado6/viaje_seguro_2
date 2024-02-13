@@ -5,7 +5,6 @@ import static android.content.ContentValues.TAG;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 
 import com.aamaldonado.viaje.seguro.utpl.tft.common.Constants;
 import com.aamaldonado.viaje.seguro.utpl.tft.model.account.UserCurrentData;
@@ -19,9 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -33,8 +30,8 @@ public class DataHandler {
     DatabaseReference busRef;
     SessionAccount sessionVM;
     String idBus;
-
     String idViaje;
+    String idCompania;
 
     private DataHandler() {
         sessionVM = new SessionAccount();
@@ -61,6 +58,9 @@ public class DataHandler {
                 if (Objects.nonNull(snapshot.child("idViaje").getValue())) {
                     idViaje = Objects.requireNonNull(snapshot.child("idViaje").getValue()).toString();
                 }
+                if (Objects.nonNull(snapshot.child("idCompania").getValue())) {
+                    idCompania = Objects.requireNonNull(snapshot.child("idCompania").getValue()).toString();
+                }
             }
 
             @Override
@@ -83,6 +83,7 @@ public class DataHandler {
             updates.put("fecha", data.getFecha());
             updates.put("idBus", data.getIdBus());
             updates.put("idViaje", data.getIdViaje());
+            updates.put("idCompania", data.getIdCompania());
             // Actualiza los campos del usuario en la base de datos
             myRef.updateChildren(updates);
         }
@@ -108,6 +109,7 @@ public class DataHandler {
         if (!Strings.isNullOrEmpty(idBus) && !Strings.isNullOrEmpty(idViaje) && coordinates.getSpeed() >= 90) {
             coordinates.setCheckExceso(Boolean.FALSE); // el reporte del exceso esta por confirmarse
             busRef = mDatabase.getReference(Constants.BUS_DATA_REF)
+                    .child(idCompania)
                     .child(idBus)
                     .child(Constants.CHILD_REPORTS)
                     .child(ValidateData.getDateTime(false))
@@ -123,8 +125,10 @@ public class DataHandler {
     public void getExcesos(ChildEventListener valueEventListener) {
         idBus = "IB123";
         idViaje = "IV123";
+        idCompania = "IDCOMP1";
         if (!Strings.isNullOrEmpty(idBus) && !Strings.isNullOrEmpty(idViaje)) {
             DatabaseReference excesosRef = mDatabase.getReference(Constants.BUS_DATA_REF)
+                    .child(idCompania)
                     .child(idBus)
                     .child(Constants.CHILD_REPORTS)
                     .child(ValidateData.getDateTime(false))
@@ -139,6 +143,7 @@ public class DataHandler {
      */
     public void setEstadoDelExcesoDeVelocidad(Boolean status,String key) {
         DatabaseReference newRef = mDatabase.getReference(Constants.BUS_DATA_REF)
+                .child(idCompania)
                 .child(idBus)
                 .child(Constants.CHILD_REPORTS)
                 .child(ValidateData.getDateTime(false))
@@ -151,6 +156,19 @@ public class DataHandler {
             // Actualiza los campos del usuario en la base de datos
             newRef.updateChildren(updates);
         }
+    }
+
+    /**
+     * Metodo para guardar el reporte personalizado a la unidad de transporte
+     * */
+    public void setReportePersonalizado(Map<String, Object> updates){
+        DatabaseReference personalReportRef = mDatabase.getReference(Constants.BUS_DATA_REF)
+                .child(idCompania)
+                .child(idBus)
+                .child(Constants.CHILD_PERSONAL_REPORTS)
+                .child(ValidateData.getDateTime(false))
+                .child(idViaje);
+        personalReportRef.updateChildren(updates);
     }
 
 }
