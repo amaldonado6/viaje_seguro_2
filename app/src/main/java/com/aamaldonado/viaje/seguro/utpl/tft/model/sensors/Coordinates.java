@@ -3,9 +3,9 @@ package com.aamaldonado.viaje.seguro.utpl.tft.model.sensors;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.DataHandler;
 
 public class Coordinates {
-    private Double lat;
-    private Double lng;
-    private Double speed;
+    private double lat;
+    private double lng;
+    private double speed;
 
     private String idExceso;
 
@@ -15,27 +15,27 @@ public class Coordinates {
     }
 
 
-    public Double getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(Double lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public Double getLng() {
+    public double getLng() {
         return lng;
     }
 
-    public void setLng(Double lng) {
+    public void setLng(double lng) {
         this.lng = lng;
     }
 
-    public Double getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
-    public void setSpeed(Double speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
 

@@ -7,14 +7,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.aamaldonado.viaje.seguro.utpl.tft.R;
 import com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.sensors.LocationViewModel;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -57,7 +55,7 @@ public class MapFragment extends Fragment {
                 if (marker != null) marker.remove();
                 LatLng coordenadas = new LatLng(location.getLatitude(), location.getLongitude());
                 marker = googleMap.addMarker(new MarkerOptions().position(coordenadas).icon(BitmapDescriptorFactory.fromResource(R.drawable.autobus)));
-                marker.setTitle("Tu posición");
+                marker.setTitle(getString(R.string.tu_posicion));
                 marker.showInfoWindow();
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordenadas,19));
             });

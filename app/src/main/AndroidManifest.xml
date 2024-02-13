@@ -19,12 +19,12 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ViajaSeguro"
-        android:hardwareAccelerated="true"
         tools:targetApi="31">
 
         <meta-data
@@ -33,9 +33,9 @@
 
         <activity
             android:name=".activities.navigation.MainSelectOptionActivity"
+            android:exported="false"
             android:screenOrientation="fullSensor"
-            tools:replace="screenOrientation"
-            android:exported="false" />
+            tools:replace="screenOrientation" />
         <activity
             android:name=".activities.account.AccountManageActivity"
             android:exported="false" />
@@ -48,10 +48,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".utils.CaptureQr"
+        <activity
+            android:name=".utils.CaptureQr"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
-            android:theme="@style/zxing_CaptureTheme"/>
+            android:theme="@style/zxing_CaptureTheme" />
     </application>
 
 </manifest>

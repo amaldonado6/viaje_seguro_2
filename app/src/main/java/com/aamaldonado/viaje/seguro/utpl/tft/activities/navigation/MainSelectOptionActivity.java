@@ -76,7 +76,7 @@ public class MainSelectOptionActivity extends AppCompatActivity {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startLocationService();
             } else {
-                Toast.makeText(this, "Permisos denegados", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.permiso_denegado), Toast.LENGTH_SHORT).show();
             }
         }
     }

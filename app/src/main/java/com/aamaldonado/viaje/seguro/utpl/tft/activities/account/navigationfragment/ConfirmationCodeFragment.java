@@ -36,8 +36,6 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import java.util.Objects;
 
 public class ConfirmationCodeFragment extends Fragment {
-
-    private static final int GRAVITY_CENTER = 25; //posicin para la notificacin
     private String extraPhone, strFullCode;
     private Button btnSendCode;
     private EditText etxtCode1, etxtCode2, etxtCode3, etxtCode4, etxtCode5, etxtCode6;
@@ -46,8 +44,7 @@ public class ConfirmationCodeFragment extends Fragment {
     private String verificationID;
     //providers
     private AuthProvider authProvider;
-    //dialog
-    private AlertDialog dialog;
+
     //view blinding
     private FragmentConfirmationCodeBinding binding;
     //.
@@ -68,7 +65,7 @@ public class ConfirmationCodeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         extraPhone = ConfirmationCodeFragmentArgs.fromBundle(getArguments()).getPhoneArg();//variable capturada del fragment anterior
         // Inflate the layout for this fragment
@@ -90,7 +87,7 @@ public class ConfirmationCodeFragment extends Fragment {
     private void mShowDialog(boolean data) {
         if(Objects.isNull(progressDialog)){
             progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setMessage("Cargando...");
+            progressDialog.setMessage(getString(R.string.cargando));
         }
         if(data){
             progressDialog.show();
@@ -117,7 +114,7 @@ public class ConfirmationCodeFragment extends Fragment {
             public void onClick(View v) {
                 //obtener el codigo completo
                 strFullCode = etxtCode1.getText().toString() + etxtCode2.getText().toString() + etxtCode3.getText().toString() + etxtCode4.getText().toString() + etxtCode5.getText().toString() + etxtCode6.getText().toString();
-                if (strFullCode != null && !strFullCode.equals("") && strFullCode.length() == 6 && extraPhone != null) {
+                if (!strFullCode.equals("") && strFullCode.length() == 6 && extraPhone != null) {
                     singIn(strFullCode);
                 } else {
                     alertComponents.setSnakbar(getView(),getString(R.string.cod_incompleto)); //snackBar
@@ -167,7 +164,7 @@ public class ConfirmationCodeFragment extends Fragment {
         }
 
         private void goBack() {
-            Navigation.findNavController(getView()).navigate(R.id.validatePhoneFragment);
+            Navigation.findNavController(requireView()).navigate(R.id.validatePhoneFragment);
         }
 
         @Override

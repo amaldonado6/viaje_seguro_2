@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_excesosFragment_to_optionFragment"
             app:destination="@id/optionFragment" />
+        <action
+            android:id="@+id/action_excesosFragment_to_mapExcesoFragment"
+            app:destination="@id/mapExcesoFragment" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
@@ -65,5 +68,21 @@
         <action
             android:id="@+id/action_mapFragment_to_optionFragment"
             app:destination="@id/optionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapExcesoFragment"
+        android:name="com.aamaldonado.viaje.seguro.utpl.tft.activities.navigation.fragment.MapExcesoFragment"
+        android:label="fragment_map_exceso"
+        tools:layout="@layout/fragment_map_exceso" >
+        <action
+            android:id="@+id/action_mapExcesoFragment_to_excesosFragment"
+            app:destination="@id/excesosFragment" />
+        <argument
+            android:name="latitud"
+            app:argType="float" />
+        <argument
+            android:name="longitud"
+            app:argType="float" />
+
     </fragment>
 </navigation>

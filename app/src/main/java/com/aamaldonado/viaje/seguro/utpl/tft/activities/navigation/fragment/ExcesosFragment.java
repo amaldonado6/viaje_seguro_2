@@ -11,11 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -81,26 +83,48 @@ public class ExcesosFragment extends Fragment {
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private void agregarSwitch(Coordinates coordinates) {
-        //configurar el nuevo boton
+        //configurar boton para obtener la ubicacion del exceso de velocidad
+        Button btnMapExcesos = new Button(getContext());
+        btnMapExcesos.setText(R.string.mostrar_ubicacion);
+        btnMapExcesos.setBackgroundResource(com.google.firebase.database.collection.R.drawable.common_google_signin_btn_icon_light_normal_background);
+        btnMapExcesos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(requireView()).navigate(ExcesosFragmentDirections.actionExcesosFragmentToMapExcesoFragment((float) coordinates.getLat(), (float) coordinates.getLng()));
+            }
+        });
+        int paddingVert = 30;
+        int paddingHor = 80;
+        btnMapExcesos.setPadding(paddingHor, paddingVert, paddingHor, paddingVert);
+        // nuevo objeto LayoutParams
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        // Configura los márgenes del LayoutParams
+        btnMapExcesos.setLayoutParams(layoutParams);
+        //configurar el switch
         Switch switchNuevo = new Switch(getContext());
         switchNuevo.setBackgroundResource(R.drawable.style_switch);
         switchNuevo.setTextColor(Color.WHITE);
         switchNuevo.setTypeface(null, Typeface.BOLD);
-        switchNuevo.setText(getString(R.string.txt_excesos).concat("\n").concat(String.valueOf(coordinates.getSpeed())).concat(getString(R.string.txt_kmh)));
+        switchNuevo.setText(getString(R.string.txt_excesos)
+                .concat("\n")
+                .concat(String.valueOf(coordinates.getSpeed()))
+                .concat(getString(R.string.txt_kmh))
+        );
         switchNuevo.setGravity(View.TEXT_ALIGNMENT_CENTER);
         switchNuevo.setTag(coordinates.getIdExceso());
         switchNuevo.setGravity(Gravity.CENTER);
         //asignar el estado del reporte
         switchNuevo.setChecked(coordinates.getCheckExceso() != null ? coordinates.getCheckExceso() : Boolean.FALSE);
-        switchNuevo.setTextOn("Encendido");
         // nuevo objeto LayoutParams
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams layoutParamsBtn = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         // Configura los márgenes del LayoutParams
-        layoutParams.setMargins(10, 10, 10, 10);
+        layoutParamsBtn.setMargins(10, 70, 10, 10);
         // Aplica los LayoutParams al botón switch
-        switchNuevo.setLayoutParams(layoutParams);
+        switchNuevo.setLayoutParams(layoutParamsBtn);
         // Crea un ColorStateList
         int[][] states = new int[][]{
                 new int[]{android.R.attr.state_checked}, // checked
@@ -114,8 +138,10 @@ public class ExcesosFragment extends Fragment {
         // Configura el color del track y del thumb
         switchNuevo.setTrackTintList(myList);
         switchNuevo.setThumbTintList(myList);
-        // Crear
+        // asignar switch
         binding.contenedorSwitches.addView(switchNuevo);
+        //asignar boton
+        binding.contenedorSwitches.addView(btnMapExcesos);
 
         //Accion del switchh
         switchNuevo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -35,7 +35,7 @@
     <string name="datos_del_perfil">Datos del perfil</string>
     <string name="nombre_del_usuario">Nombre de usuario</string>
     <string name="e_mail">E-Mail</string>
-    <string name="cargando">Cargando</string>
+    <string name="cargando">Cargando...</string>
     <string name="fail_mail">E-Mail inválido</string>
     <string name="nombre_corto">Nombre demasiado corto</string>
     <string name="seleccion">Selección</string>
@@ -82,4 +82,7 @@
     <string name="bus_data">bus_data</string>
     <string name="txt_exceso_reportado">Exceso de velocidad reportado.</string>
     <string name="txt_exceso_anulado">Reporte anulado</string>
+    <string name="mostrar_ubicacion">Mostrar ubicación</string>
+    <string name="tu_posicion">Tu posición</string>
+    <string name="permiso_denegado">Permisos denegados</string>
 </resources>
