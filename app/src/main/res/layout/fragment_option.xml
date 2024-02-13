@@ -130,8 +130,8 @@
 
                 <TextView
                     android:id="@+id/counter_ex"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:visibility="gone"
                     android:gravity="center"
                     android:textColor="#FFFFFF"
@@ -237,6 +237,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/card_panico"
             android:layout_width="wrap_content"
@@ -244,41 +245,33 @@
             android:layout_marginStart="25dp"
             android:layout_marginTop="42dp"
             android:layout_marginBottom="10dp"
-            android:foreground="?selectableItemBackground"
             app:cardCornerRadius="12dp"
-            app:cardElevation="9dp"
-            tools:ignore="OnClick">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
+            app:cardElevation="9dp">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="130dp"
                 android:padding="25dp"
-
                 >
-
                 <ImageView
                     android:id="@+id/alerta"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_centerHorizontal="true"
                     android:padding="5dp"
-                    android:src="@drawable/alarma" />
-
+                    android:src="@drawable/alarma"
+                    android:contentDescription="@string/img_boton_alerta" />
                 <TextView
                     android:id="@+id/txt_panico"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/txt_panico"
                     android:textColor="#ffcc00"
                     android:textSize="16sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/alerta"
                     android:textStyle="bold"
                     />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
+            </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </androidx.gridlayout.widget.GridLayout>
 

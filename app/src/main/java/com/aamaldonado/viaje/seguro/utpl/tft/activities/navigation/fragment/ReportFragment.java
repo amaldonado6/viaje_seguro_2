@@ -20,7 +20,6 @@ import com.google.zxing.common.StringUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class ReportFragment extends Fragment {
 

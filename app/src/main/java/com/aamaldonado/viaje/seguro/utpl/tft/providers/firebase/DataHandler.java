@@ -24,7 +24,7 @@ import java.util.Objects;
 
 public class DataHandler {
 
-    private static DataHandler INSTANCE;
+    private static DataHandler instance;
     FirebaseDatabase mDatabase;
     DatabaseReference myRef;
     DatabaseReference busRef;
@@ -41,10 +41,10 @@ public class DataHandler {
     }
 
     public static DataHandler getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new DataHandler();
+        if (instance == null) {
+            instance = new DataHandler();
         }
-        return INSTANCE;
+        return instance;
     }
 
     private void getdataBus() {
@@ -52,21 +52,21 @@ public class DataHandler {
         myRefBus.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (Objects.nonNull(snapshot.child("idBus").getValue())) {
-                    idBus = Objects.requireNonNull(snapshot.child("idBus").getValue()).toString();
+                if (Objects.nonNull(snapshot.child(Constants.ID_BUS).getValue())) {
+                    idBus = Objects.requireNonNull(snapshot.child(Constants.ID_BUS).getValue()).toString();
                 }
-                if (Objects.nonNull(snapshot.child("idViaje").getValue())) {
-                    idViaje = Objects.requireNonNull(snapshot.child("idViaje").getValue()).toString();
+                if (Objects.nonNull(snapshot.child(Constants.ID_VIAJE).getValue())) {
+                    idViaje = Objects.requireNonNull(snapshot.child(Constants.ID_VIAJE).getValue()).toString();
                 }
-                if (Objects.nonNull(snapshot.child("idCompania").getValue())) {
-                    idCompania = Objects.requireNonNull(snapshot.child("idCompania").getValue()).toString();
+                if (Objects.nonNull(snapshot.child(Constants.ID_COMPANIA).getValue())) {
+                    idCompania = Objects.requireNonNull(snapshot.child(Constants.ID_COMPANIA).getValue()).toString();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Error al leer el valor
-                Log.d(TAG, "Error al leer valores de la bdd.", error.toException());
+                Log.d(TAG, Constants.MENSAJE_ERROR_BDD, error.toException());
             }
         });
     }
@@ -80,10 +80,10 @@ public class DataHandler {
             myRef = mDatabase.getReference(Constants.USER_DATA_REF).child(sessionVM.getUser());
             // Crea un mapa con los campos que quieres actualizar
             Map<String, Object> updates = new HashMap<>();
-            updates.put("fecha", data.getFecha());
-            updates.put("idBus", data.getIdBus());
-            updates.put("idViaje", data.getIdViaje());
-            updates.put("idCompania", data.getIdCompania());
+            updates.put(Constants.FECHA, data.getFecha());
+            updates.put(Constants.ID_BUS, data.getIdBus());
+            updates.put(Constants.ID_VIAJE, data.getIdViaje());
+            updates.put(Constants.ID_COMPANIA, data.getIdCompania());
             // Actualiza los campos del usuario en la base de datos
             myRef.updateChildren(updates);
         }
@@ -96,7 +96,7 @@ public class DataHandler {
         if (sessionVM.getSessionExist()) {
             // Crea un mapa con los campos que quieres actualizar
             Map<String, Object> updates = new HashMap<>();
-            updates.put("coordenadas", coordinates);
+            updates.put(Constants.COORDENADAS, coordinates);
             // Actualiza los campos del usuario en la base de datos
             myRef.updateChildren(updates);
         }
@@ -123,10 +123,7 @@ public class DataHandler {
      * Metodo para obtener los excesos de velocidad individuales que se capturaron en el transcurso del viaje
      */
     public void getExcesos(ChildEventListener valueEventListener) {
-        idBus = "IB123";
-        idViaje = "IV123";
-        idCompania = "IDCOMP1";
-        if (!Strings.isNullOrEmpty(idBus) && !Strings.isNullOrEmpty(idViaje)) {
+        if (!Strings.isNullOrEmpty(idBus) && !Strings.isNullOrEmpty(idViaje) && !Strings.isNullOrEmpty(idCompania)) {
             DatabaseReference excesosRef = mDatabase.getReference(Constants.BUS_DATA_REF)
                     .child(idCompania)
                     .child(idBus)
@@ -141,7 +138,7 @@ public class DataHandler {
     /**
      * Metodo para actualizar los datos individuales del usuario (ubicacion en su propio nodo)
      */
-    public void setEstadoDelExcesoDeVelocidad(Boolean status,String key) {
+    public void setEstadoDelExcesoDeVelocidad(Boolean status, String key) {
         DatabaseReference newRef = mDatabase.getReference(Constants.BUS_DATA_REF)
                 .child(idCompania)
                 .child(idBus)
@@ -152,7 +149,7 @@ public class DataHandler {
         if (sessionVM.getSessionExist()) {
             // Crea un mapa con los campos que quieres actualizar
             Map<String, Object> updates = new HashMap<>();
-            updates.put("checkExceso", status);
+            updates.put(Constants.DB_CHECK_EXCESO, status);
             // Actualiza los campos del usuario en la base de datos
             newRef.updateChildren(updates);
         }
@@ -160,8 +157,8 @@ public class DataHandler {
 
     /**
      * Metodo para guardar el reporte personalizado a la unidad de transporte
-     * */
-    public void setReportePersonalizado(Map<String, Object> updates){
+     */
+    public void setReportePersonalizado(Map<String, Object> updates) {
         DatabaseReference personalReportRef = mDatabase.getReference(Constants.BUS_DATA_REF)
                 .child(idCompania)
                 .child(idBus)
@@ -171,4 +168,23 @@ public class DataHandler {
         personalReportRef.updateChildren(updates);
     }
 
+    public void setAlertaDePanico(double latitude, double longitude) {
+
+        DatabaseReference alertaDePanicoRef = mDatabase.getReference(Constants.ALERT_PANIC_DATA);
+        //nuevo registro con id aleatorio
+        DatabaseReference newRef = alertaDePanicoRef.push();
+        //datos a guardar
+        Map<String, Object> updates = new HashMap<>();
+        updates.put(Constants.DB_LAT, latitude);
+        updates.put(Constants.DB_LNG, longitude);
+        updates.put(Constants.DB_ID_USUARIO, sessionVM.getUser());
+        if (!Strings.isNullOrEmpty(idViaje) && !Strings.isNullOrEmpty(idBus) && !Strings.isNullOrEmpty(idCompania)) {
+            updates.put(Constants.ID_VIAJE, idViaje);
+            updates.put(Constants.ID_COMPANIA, idCompania);
+            updates.put(Constants.ID_BUS, idBus);
+        }
+        //guarda los datos
+        newRef.setValue(updates);
+
+    }
 }

@@ -17,7 +17,7 @@
     <string name="origen">Origen</string>
     <string name="destino">Destino</string>
     <string name="ingresar">Ingresar</string>
-    <string name="title_app">Tutum</string>
+    <string name="title_app">Viaje seguro</string>
     <string name="acceso">Acceso</string>
     <string name="descrip_phonenumber">Por favor ingrese su número celular</string>
     <string name="numero_celular">Número Celular</string>
@@ -94,4 +94,14 @@
     <string name="se_mantiene_el_veh_culo_nestacionado_mucho_tiempo">Se mantiene el vehículo\nestacionado mucho tiempo</string>
     <string name="para_a_recargar_combustible">Para a recargar combustible</string>
     <string name="reporte_enviado">Reporte enviado</string>
+    <string name="img_boton_alerta">img boton alerta</string>
+    <string name="mis_datos">Mis Datos</string>
+    <string name="txt_latitud">Latitud:</string>
+    <string name="img_titulo_mis_datos">img titulo mis datos</string>
+    <string name="default_value_cero">0</string>
+    <string name="txt_longitud">Longitud:</string>
+    <string name="txt_velocidad">Velocidad:</string>
+    <string name="default_value_whitout_direction">...</string>
+    <string name="txt_ubicaci_n">Ubicación:</string>
+    <string name="compartir_ubicaci_n">Compartir Ubicación</string>
 </resources>

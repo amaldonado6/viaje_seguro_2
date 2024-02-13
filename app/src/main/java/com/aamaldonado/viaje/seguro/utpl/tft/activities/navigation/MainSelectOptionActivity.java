@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,7 +22,6 @@ import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.AuthProvider;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.LocationPermissionChecker;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.service.BackgroundService;
 import com.aamaldonado.viaje.seguro.utpl.tft.utils.ValidateData;
-import com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.DbViewModel.DataBaseViewModel;
 import com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.sensors.LocationViewModel;
 
 public class MainSelectOptionActivity extends AppCompatActivity {
@@ -31,8 +29,6 @@ public class MainSelectOptionActivity extends AppCompatActivity {
     private ActivityMainSelectOptionBinding binding;
 
     private LocationViewModel locationViewModel;
-
-    private DataBaseViewModel dataBaseViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,22 +38,8 @@ public class MainSelectOptionActivity extends AppCompatActivity {
         setContentView(view);
         //Location viewModel
         locationViewModel = new ViewModelProvider(this).get(LocationViewModel.class);
-        //
-        dataBaseViewModel = new ViewModelProvider(this).get(DataBaseViewModel.class);
         //get location
         iniciarLocation();
-        //configuracion del layout
-        configLayout();
-    }
-
-    private void configLayout() {
-        //orientacion de la app
-        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-        //Observer
-        locationViewModel.getLocationData().observe(this, loc -> {
-            //Asignar la velocidad
-            binding.velocidadActual.setText(String.valueOf(ValidateData.getSpeed(loc)));
-        });
     }
 
     @Override
@@ -86,6 +68,9 @@ public class MainSelectOptionActivity extends AppCompatActivity {
     private void startLocationService() {
         if (!isLocationServiceRunning()) {
             locationViewModel.startLocationUpdates(this);
+            //Observer
+            //Asignar velocidad
+            locationViewModel.getLocationData().observe(this, loc -> binding.velocidadActual.setText(String.valueOf(ValidateData.getSpeed(loc))));
         }
     }
 
@@ -93,10 +78,8 @@ public class MainSelectOptionActivity extends AppCompatActivity {
         ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         if (activityManager != null) {
             for (ActivityManager.RunningServiceInfo service : activityManager.getRunningServices(Integer.MAX_VALUE)) {
-                if (BackgroundService.class.getName().equals(service.service.getClassName())) {
-                    if (service.foreground) {
+                if (BackgroundService.class.getName().equals(service.service.getClassName()) && (service.foreground)) {
                         return true;
-                    }
                 }
             }
             return false;

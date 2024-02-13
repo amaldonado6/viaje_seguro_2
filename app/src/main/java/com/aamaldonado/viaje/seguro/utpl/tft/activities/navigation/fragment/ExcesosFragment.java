@@ -27,7 +27,7 @@ import com.aamaldonado.viaje.seguro.utpl.tft.R;
 import com.aamaldonado.viaje.seguro.utpl.tft.databinding.FragmentExcesosBinding;
 import com.aamaldonado.viaje.seguro.utpl.tft.model.sensors.Coordinates;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.DataHandler;
-import com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.DbViewModel.DataBaseViewModel;
+import com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.database.DataBaseViewModel;
 
 import java.util.List;
 

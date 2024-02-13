@@ -10,12 +10,10 @@ import androidx.lifecycle.ViewModel;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.service.LocationService;
 
 public class LocationViewModel extends ViewModel {
+
     @SuppressLint("StaticFieldLeak")
     private LocationService locationService;
     private LiveData<Location> locationData;
-
-    public LocationViewModel() {
-    }
 
     public LiveData<Location> getLocationData() {
         return locationData;

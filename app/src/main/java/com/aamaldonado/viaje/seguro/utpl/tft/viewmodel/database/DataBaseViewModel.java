@@ -1,4 +1,6 @@
-package com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.DbViewModel;
+package com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.database;
+
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,7 +16,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,17 +23,13 @@ import java.util.Objects;
 
 public class DataBaseViewModel extends ViewModel {
 
-    private MutableLiveData<Coordinates> exceso;
-    private MutableLiveData<List<Coordinates>> excesosList;
+    private final MutableLiveData<Coordinates> exceso;
+    private final MutableLiveData<List<Coordinates>> excesosList;
 
     public DataBaseViewModel() {
         exceso = new MutableLiveData<>();
         excesosList = new MutableLiveData<>();
         excesosList.setValue(new ArrayList<>());
-    }
-
-    public LiveData<Coordinates> getExcesos() {
-        return exceso;
     }
 
     public LiveData<List<Coordinates>> getExcesosList() {
@@ -57,17 +54,17 @@ public class DataBaseViewModel extends ViewModel {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
+                Log.d(Constants.TAG1, Objects.requireNonNull(snapshot.getKey()));
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                Log.d(Constants.TAG1, Objects.requireNonNull(snapshot.getKey()));
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.d(Constants.TAG1, Objects.requireNonNull(error.getMessage()));
             }
         });
     }
