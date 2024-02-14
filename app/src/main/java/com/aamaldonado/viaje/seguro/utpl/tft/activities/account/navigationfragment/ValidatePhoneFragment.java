@@ -73,7 +73,7 @@ public class ValidatePhoneFragment extends Fragment {
 
     private void viewModelRegister() {
         //validar el numero de telefono ingresado
-        boolean acceptPhone = PhoneValidate.dataModelPhone(phoneB.getEditableText().toString());; //verificar el numero ingresado
+        boolean acceptPhone = PhoneValidate.dataModelPhone(phoneB.getEditableText().toString()); //verificar el numero ingresado
         if (acceptPhone) {
             /*si es correcto cambiar de actividad para poder enviar el codigo de verificación*/
             sendData();

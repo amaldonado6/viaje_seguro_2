@@ -20,9 +20,10 @@ import com.aamaldonado.viaje.seguro.utpl.tft.common.Constants;
 import com.aamaldonado.viaje.seguro.utpl.tft.databinding.ActivityMainSelectOptionBinding;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.AuthProvider;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.LocationPermissionChecker;
-import com.aamaldonado.viaje.seguro.utpl.tft.providers.service.BackgroundService;
 import com.aamaldonado.viaje.seguro.utpl.tft.utils.ValidateData;
 import com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.sensors.LocationViewModel;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 public class MainSelectOptionActivity extends AppCompatActivity {
 
@@ -40,6 +41,17 @@ public class MainSelectOptionActivity extends AppCompatActivity {
         locationViewModel = new ViewModelProvider(this).get(LocationViewModel.class);
         //get location
         iniciarLocation();
+        //guia usuario
+        guiaDeUsuario();
+    }
+
+    private void guiaDeUsuario() {
+        locationViewModel.getStatus().observe(this,observer-> new TapTargetSequence(this)
+                .targets(
+                        TapTarget.forView(binding.cardVelocidad, Constants.GUIA_VELOCIDAD)
+                                .transparentTarget(true)
+                                .targetRadius(60)
+                ).start());
     }
 
     @Override
@@ -66,25 +78,10 @@ public class MainSelectOptionActivity extends AppCompatActivity {
     }
 
     private void startLocationService() {
-        if (!isLocationServiceRunning()) {
-            locationViewModel.startLocationUpdates(this);
-            //Observer
-            //Asignar velocidad
-            locationViewModel.getLocationData().observe(this, loc -> binding.velocidadActual.setText(String.valueOf(ValidateData.getSpeed(loc))));
-        }
-    }
-
-    private boolean isLocationServiceRunning() {
-        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        if (activityManager != null) {
-            for (ActivityManager.RunningServiceInfo service : activityManager.getRunningServices(Integer.MAX_VALUE)) {
-                if (BackgroundService.class.getName().equals(service.service.getClassName()) && (service.foreground)) {
-                        return true;
-                }
-            }
-            return false;
-        }
-        return false;
+        locationViewModel.startLocationUpdates(this);
+        //Observer
+        //Asignar velocidad
+        locationViewModel.getLocationData().observe(this, loc -> binding.velocidadActual.setText(String.valueOf(ValidateData.getSpeed(loc))));
     }
 
 

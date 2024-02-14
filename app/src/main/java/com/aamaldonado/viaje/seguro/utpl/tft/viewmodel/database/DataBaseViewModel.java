@@ -26,16 +26,21 @@ public class DataBaseViewModel extends ViewModel {
     private final MutableLiveData<Coordinates> exceso;
     private final MutableLiveData<List<Coordinates>> excesosList;
 
+    private final LiveData<Boolean> tieneTransporte;
+
     public DataBaseViewModel() {
         exceso = new MutableLiveData<>();
         excesosList = new MutableLiveData<>();
         excesosList.setValue(new ArrayList<>());
+        tieneTransporte = DataHandler.getInstance().getTransporte();
+    }
+    public LiveData<Boolean> getTieneTransporte() {
+        return tieneTransporte;
     }
 
     public LiveData<List<Coordinates>> getExcesosList() {
         return excesosList;
     }
-
 
     /**
      * Metodo para cargar los datos de los excesos de velocidad e ir capturando continuamente nuevos excesos

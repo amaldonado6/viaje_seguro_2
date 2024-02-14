@@ -30,4 +30,12 @@ public final class Constants {
     public static final String MENSAJE_ERROR_BDD = "Error al leer valores de la bdd.";
     public static final String FORMATO_DATE_HORA = "dd-MM-yyyy HH:mm";
     public static final String FORMATO_DATE = "dd-MM-yyyy";
+    public static final String GUIA_REPORTE = "Sección para crear un reporte personalizado";
+    public static final String GUIA_MAPA = "Sección para visualizar tu ubicación actual";
+    public static final String GUIA_EXCESOS = "Sección donde se registran los excesos de velocidad del transporte";
+    public static final String GUIA_COUNTER = "Contador de excesos de velocidad";
+    public static final String GUIA_QR = "Sección para registrar un nuevo transporte";
+    public static final String GUIA_INFO = "Sección donde se muestra la información de la ubicación actual";
+    public static final String GUIA_ALERTA = "Botón de alerta prioritaria";
+    public static final String GUIA_VELOCIDAD = "Velocidad actual";
 }

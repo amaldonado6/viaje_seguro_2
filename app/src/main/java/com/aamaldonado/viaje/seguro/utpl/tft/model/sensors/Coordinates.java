@@ -1,7 +1,5 @@
 package com.aamaldonado.viaje.seguro.utpl.tft.model.sensors;
 
-import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.DataHandler;
-
 public class Coordinates {
     private double lat;
     private double lng;
@@ -12,6 +10,7 @@ public class Coordinates {
     private Boolean checkExceso;
 
     public Coordinates() {
+        //empty
     }
 
 

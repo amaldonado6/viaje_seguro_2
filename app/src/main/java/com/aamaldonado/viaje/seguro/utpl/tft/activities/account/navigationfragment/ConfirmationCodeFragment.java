@@ -1,6 +1,5 @@
 package com.aamaldonado.viaje.seguro.utpl.tft.activities.account.navigationfragment;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,10 +35,14 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import java.util.Objects;
 
 public class ConfirmationCodeFragment extends Fragment {
-    private String extraPhone, strFullCode;
-    private Button btnSendCode;
-    private EditText etxtCode1, etxtCode2, etxtCode3, etxtCode4, etxtCode5, etxtCode6;
-    private LinearLayout linearHeader;
+    private String extraPhone;
+    private String strFullCode;
+    private EditText etxtCode1;
+    private EditText etxtCode2;
+    private EditText etxtCode3;
+    private EditText etxtCode4;
+    private EditText etxtCode5;
+    private EditText etxtCode6;
     //variable de solicitud
     private String verificationID;
     //providers
@@ -98,16 +101,17 @@ public class ConfirmationCodeFragment extends Fragment {
 
     private void configLayout() {
         //establecer los componentes activos de la interfaz
-        btnSendCode = binding.ccBtnSendCode;
+        Button btnSendCode = binding.ccBtnSendCode;
         etxtCode1 = binding.ccEdit1;
         etxtCode2 = binding.ccEdit2;
         etxtCode3 = binding.ccEdit3;
         etxtCode4 = binding.ccEdit4;
         etxtCode5 = binding.ccEdit5;
         etxtCode6 = binding.ccEdit6;
-        linearHeader = binding.ccLinearHeader;
+        LinearLayout linearHeader = binding.ccLinearHeader;
         linearHeader.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide));//animacion del header
         focusEdText();//saltar de un edidText a otro
+        focusEdText2();//saltar de un edidText a otro
         //accion click del boton
         btnSendCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,7 +185,7 @@ public class ConfirmationCodeFragment extends Fragment {
         etxtCode1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                //empty
             }
 
             @Override
@@ -193,13 +197,13 @@ public class ConfirmationCodeFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                //empty
             }
         });
         etxtCode2.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                //empty
             }
 
             @Override
@@ -214,13 +218,13 @@ public class ConfirmationCodeFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                //empty
             }
         });
         etxtCode3.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                //empty
             }
 
             @Override
@@ -235,13 +239,16 @@ public class ConfirmationCodeFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                //empty
             }
         });
+
+    }
+    private void focusEdText2() {
         etxtCode4.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                //empty
             }
 
             @Override
@@ -256,13 +263,13 @@ public class ConfirmationCodeFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                //empty
             }
         });
         etxtCode5.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                //empty
             }
 
             @Override
@@ -277,13 +284,13 @@ public class ConfirmationCodeFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                //empty
             }
         });
         etxtCode6.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                //empty
             }
 
             @Override
@@ -295,7 +302,7 @@ public class ConfirmationCodeFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                //empty
             }
         });
     }

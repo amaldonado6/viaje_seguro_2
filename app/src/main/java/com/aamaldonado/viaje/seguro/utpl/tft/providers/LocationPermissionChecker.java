@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.aamaldonado.viaje.seguro.utpl.tft.common.Constants;
 
@@ -16,7 +17,7 @@ public class LocationPermissionChecker {
     }
 
     public boolean hasLocationPermission() {
-        return ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
     public void requestLocationPermission() {

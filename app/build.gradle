@@ -64,8 +64,8 @@ dependencies {
     //imagenes redondeadas
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     //navigationComponent
-    implementation "androidx.navigation:navigation-fragment:2.7.6"
-    implementation "androidx.navigation:navigation-ui:2.7.6"
+    implementation "androidx.navigation:navigation-fragment:2.7.7"
+    implementation "androidx.navigation:navigation-ui:2.7.7"
     //animaciones lottie
     implementation "com.airbnb.android:lottie:5.2.0"
     //progress dialog cargando
@@ -88,4 +88,6 @@ dependencies {
     implementation 'io.github.florent37:shapeofview:1.4.7'
     //zxing camara qr
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    //TapTarget-guide tap
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.3'
 }

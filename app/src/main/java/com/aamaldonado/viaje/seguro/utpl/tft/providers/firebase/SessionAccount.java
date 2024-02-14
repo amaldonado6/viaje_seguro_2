@@ -1,7 +1,5 @@
 package com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase;
 
-import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.AuthProvider;
-
 public class SessionAccount {
     private final AuthProvider authProvider; //provider
 

@@ -5,6 +5,8 @@ import static android.content.ContentValues.TAG;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.aamaldonado.viaje.seguro.utpl.tft.common.Constants;
 import com.aamaldonado.viaje.seguro.utpl.tft.model.account.UserCurrentData;
@@ -25,15 +27,17 @@ import java.util.Objects;
 public class DataHandler {
 
     private static DataHandler instance;
-    FirebaseDatabase mDatabase;
-    DatabaseReference myRef;
-    DatabaseReference busRef;
-    SessionAccount sessionVM;
-    String idBus;
-    String idViaje;
-    String idCompania;
+    private final FirebaseDatabase mDatabase;
+    private DatabaseReference myRef;
+    private final SessionAccount sessionVM;
+    private String idBus;
+    private String idViaje;
+    private String idCompania;
+
+    private MutableLiveData<Boolean> tieneTransporte;
 
     private DataHandler() {
+        tieneTransporte = new MutableLiveData<>();
         sessionVM = new SessionAccount();
         mDatabase = FirebaseDatabase.getInstance();
         myRef = mDatabase.getReference(Constants.USER_DATA_REF).child(sessionVM.getUser());
@@ -60,6 +64,7 @@ public class DataHandler {
                 }
                 if (Objects.nonNull(snapshot.child(Constants.ID_COMPANIA).getValue())) {
                     idCompania = Objects.requireNonNull(snapshot.child(Constants.ID_COMPANIA).getValue()).toString();
+                    tieneTransporte.setValue(true);
                 }
             }
 
@@ -71,6 +76,9 @@ public class DataHandler {
         });
     }
 
+    public LiveData<Boolean> getTransporte() {
+        return tieneTransporte;
+    }
 
     /**
      * Metodo para actualizar los datos individuales del usuario en un transporte (en el nodo del transporte)
@@ -108,7 +116,7 @@ public class DataHandler {
     public void setCurrentClientDataToBus(Coordinates coordinates) {
         if (!Strings.isNullOrEmpty(idBus) && !Strings.isNullOrEmpty(idViaje) && coordinates.getSpeed() >= 90) {
             coordinates.setCheckExceso(Boolean.FALSE); // el reporte del exceso esta por confirmarse
-            busRef = mDatabase.getReference(Constants.BUS_DATA_REF)
+            DatabaseReference busRef = mDatabase.getReference(Constants.BUS_DATA_REF)
                     .child(idCompania)
                     .child(idBus)
                     .child(Constants.CHILD_REPORTS)
@@ -132,7 +140,6 @@ public class DataHandler {
                     .child(idViaje);
             excesosRef.addChildEventListener(valueEventListener);
         }
-
     }
 
     /**

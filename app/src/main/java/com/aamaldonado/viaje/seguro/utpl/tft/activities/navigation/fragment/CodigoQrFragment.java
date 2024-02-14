@@ -1,5 +1,7 @@
 package com.aamaldonado.viaje.seguro.utpl.tft.activities.navigation.fragment;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +83,7 @@ public class CodigoQrFragment extends Fragment {
     });
 
     private void guardarDatos(String contents) {
+        Log.d(TAG, contents);
         UserCurrentData userCurrentData = new UserCurrentData();
         userCurrentData.setFecha(ValidateData.getDateTime(true));
         userCurrentData.setIdBus("IB123");

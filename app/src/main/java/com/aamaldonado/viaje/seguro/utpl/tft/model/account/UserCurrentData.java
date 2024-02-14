@@ -1,7 +1,5 @@
 package com.aamaldonado.viaje.seguro.utpl.tft.model.account;
 
-import java.util.Date;
-
 public class UserCurrentData {
     String fecha;
     String idBus;
@@ -10,6 +8,7 @@ public class UserCurrentData {
     String idCompania;
 
     public UserCurrentData() {
+        //empty
     }
 
     public String getFecha() {
