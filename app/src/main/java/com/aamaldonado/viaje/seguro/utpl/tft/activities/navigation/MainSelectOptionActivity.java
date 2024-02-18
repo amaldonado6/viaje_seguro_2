@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -20,16 +18,20 @@ import com.aamaldonado.viaje.seguro.utpl.tft.common.Constants;
 import com.aamaldonado.viaje.seguro.utpl.tft.databinding.ActivityMainSelectOptionBinding;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.AuthProvider;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.LocationPermissionChecker;
+import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.DataHandler;
 import com.aamaldonado.viaje.seguro.utpl.tft.utils.ValidateData;
+import com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.sensors.AccelerometerViewModel;
 import com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.sensors.LocationViewModel;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
+
 
 public class MainSelectOptionActivity extends AppCompatActivity {
 
     private ActivityMainSelectOptionBinding binding;
 
     private LocationViewModel locationViewModel;
+    private AccelerometerViewModel accelerometerViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +41,31 @@ public class MainSelectOptionActivity extends AppCompatActivity {
         setContentView(view);
         //Location viewModel
         locationViewModel = new ViewModelProvider(this).get(LocationViewModel.class);
+        //Accelerometer
+        accelerometerViewModel = new ViewModelProvider(this).get(AccelerometerViewModel.class);
+        //get accelerometer
+        iniciarAcelerometror();
         //get location
         iniciarLocation();
         //guia usuario
         guiaDeUsuario();
     }
 
+    /**
+     * Metodo para observar los valores capturados por el acelerometro
+     * */
+    private void iniciarAcelerometror() {
+        //iniciar el servicio de sensor
+        accelerometerViewModel.initAccelerometerViewModel(this);
+        //Observar los cambios registrados
+        accelerometerViewModel.getSensorData().observe(this,observer -> DataHandler.getInstance().setValorAcelerometor(observer));
+    }
+
+    /**
+     * Metodo para activar la guia de usuario del activity
+     * */
     private void guiaDeUsuario() {
+        //guia para la velocidad en tiempo real
         locationViewModel.getStatus().observe(this,observer-> new TapTargetSequence(this)
                 .targets(
                         TapTarget.forView(binding.cardVelocidad, Constants.GUIA_VELOCIDAD)
@@ -78,6 +98,7 @@ public class MainSelectOptionActivity extends AppCompatActivity {
     }
 
     private void startLocationService() {
+        //Empezar a reconocer las actualizaciones de ubicacion
         locationViewModel.startLocationUpdates(this);
         //Observer
         //Asignar velocidad
@@ -85,6 +106,9 @@ public class MainSelectOptionActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Cerrar sesión
+     * */
     private void logout() {
         AuthProvider authProvider = new AuthProvider();
         authProvider.logOut();

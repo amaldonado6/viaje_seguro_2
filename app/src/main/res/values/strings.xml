@@ -100,4 +100,7 @@
     <string name="txt_ubicaci_n">Ubicación:</string>
     <string name="compartir_ubicaci_n">Compartir Ubicación</string>
     <string name="sharing_id">"\nID del usurio: "</string>
+    <string name="no_hay_excesos">No hay excesos de velocidad registrados.</string>
+    <string name="vuelva_a_intentarlo">Vuelva a intentarlo más tarde.</string>
+    <string name="debe_estar_registrado_trans">Debe estar registrado en un transporte.</string>
 </resources>

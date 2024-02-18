@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="596dp"
+        android:layout_height="683dp"
         android:orientation="horizontal"
         tools:ignore="UselessParent">
 
@@ -16,8 +16,8 @@
             android:id="@+id/tiulo_mis_datos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="140dp"
             android:layout_marginStart="100dp"
+            android:layout_marginTop="140dp"
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:text="@string/mis_datos"
@@ -30,11 +30,10 @@
             android:id="@+id/image"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginTop="110dp"
             android:layout_alignStart="@+id/tiulo_mis_datos"
-            android:src="@drawable/autobu"
-            android:contentDescription="@string/img_titulo_mis_datos" />
-
+            android:layout_marginTop="110dp"
+            android:contentDescription="@string/img_titulo_mis_datos"
+            android:src="@drawable/autobu" />
 
 
         <TextView
@@ -47,7 +46,7 @@
             android:layout_marginStart="219dp"
             android:layout_marginTop="243dp"
             android:layout_marginEnd="77dp"
-            android:layout_marginBottom="355dp"
+            android:layout_marginBottom="395dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@string/default_value_cero"
@@ -62,8 +61,8 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="95dp"
             android:layout_marginEnd="196dp"
-            android:layout_marginBottom="355dp"
-            android:ems="10"
+            android:layout_marginBottom="395dp"
+            android:textStyle="bold"
             android:inputType="textPersonName"
             android:text="@string/txt_latitud"
             tools:ignore="TextViewEdits" />
@@ -79,7 +78,7 @@
             android:layout_marginStart="219dp"
             android:layout_marginTop="243dp"
             android:layout_marginEnd="77dp"
-            android:layout_marginBottom="313dp"
+            android:layout_marginBottom="353dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@string/default_value_cero"
@@ -94,8 +93,8 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="95dp"
             android:layout_marginEnd="196dp"
-            android:layout_marginBottom="313dp"
-            android:ems="10"
+            android:layout_marginBottom="353dp"
+            android:textStyle="bold"
             android:inputType="textPersonName"
             android:text="@string/txt_longitud"
             tools:ignore="TextViewEdits" />
@@ -109,8 +108,8 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="95dp"
             android:layout_marginEnd="196dp"
-            android:layout_marginBottom="271dp"
-            android:ems="10"
+            android:layout_marginBottom="311dp"
+            android:textStyle="bold"
             android:inputType="textPersonName"
             android:text="@string/txt_velocidad"
             tools:ignore="TextViewEdits" />
@@ -125,7 +124,7 @@
             android:layout_marginStart="219dp"
             android:layout_marginTop="243dp"
             android:layout_marginEnd="77dp"
-            android:layout_marginBottom="271dp"
+            android:layout_marginBottom="311dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@string/default_value_cero"
@@ -138,10 +137,10 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="219dp"
-            android:layout_marginEnd="19dp"
+            android:layout_marginStart="95dp"
+            android:layout_marginEnd="95dp"
             android:layout_marginBottom="160dp"
-            android:ems="10"
+            android:maxLines="5"
             android:inputType="textPersonName"
             android:text="@string/default_value_whitout_direction"
             tools:ignore="TextViewEdits" />
@@ -156,8 +155,8 @@
             android:layout_marginStart="95dp"
             android:layout_marginTop="243dp"
             android:layout_marginEnd="197dp"
-            android:layout_marginBottom="231dp"
-            android:ems="10"
+            android:layout_marginBottom="271dp"
+            android:textStyle="bold"
             android:inputType="textPersonName"
             android:text="@string/txt_ubicaci_n"
             tools:ignore="TextViewEdits" />
@@ -171,7 +170,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="121dp"
-            android:layout_marginTop="456dp"
+            android:layout_marginTop="550dp"
             android:layout_marginEnd="88dp"
             android:layout_marginBottom="84dp"
             android:background="@drawable/btn_bg"

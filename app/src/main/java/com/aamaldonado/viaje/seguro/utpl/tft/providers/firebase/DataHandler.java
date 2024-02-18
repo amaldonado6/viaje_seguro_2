@@ -2,6 +2,7 @@ package com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase;
 
 import static android.content.ContentValues.TAG;
 
+import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.aamaldonado.viaje.seguro.utpl.tft.common.Constants;
 import com.aamaldonado.viaje.seguro.utpl.tft.model.account.UserCurrentData;
+import com.aamaldonado.viaje.seguro.utpl.tft.model.sensors.Accelerometer;
 import com.aamaldonado.viaje.seguro.utpl.tft.model.sensors.Coordinates;
 import com.aamaldonado.viaje.seguro.utpl.tft.utils.ValidateData;
 import com.google.common.base.Strings;
@@ -34,6 +36,12 @@ public class DataHandler {
     private String idViaje;
     private String idCompania;
 
+    private double lat;
+    private double lng;
+
+    private boolean excesoDeVelocidadDetectado = false;
+
+    private final Handler handler = new Handler();
     private MutableLiveData<Boolean> tieneTransporte;
 
     private DataHandler() {
@@ -102,6 +110,8 @@ public class DataHandler {
      */
     public void setCurrentClientDataLatLng(Coordinates coordinates) {
         if (sessionVM.getSessionExist()) {
+            lat = coordinates.getLat();
+            lng = coordinates.getLng();
             // Crea un mapa con los campos que quieres actualizar
             Map<String, Object> updates = new HashMap<>();
             updates.put(Constants.COORDENADAS, coordinates);
@@ -114,7 +124,7 @@ public class DataHandler {
      * Metodo para registrar los excesos de velocidad capturados en el transcurso del viaje
      */
     public void setCurrentClientDataToBus(Coordinates coordinates) {
-        if (!Strings.isNullOrEmpty(idBus) && !Strings.isNullOrEmpty(idViaje) && coordinates.getSpeed() >= 90) {
+        if (!Strings.isNullOrEmpty(idBus) && !Strings.isNullOrEmpty(idViaje) && coordinates.getSpeed() >= 90 && !excesoDeVelocidadDetectado) {
             coordinates.setCheckExceso(Boolean.FALSE); // el reporte del exceso esta por confirmarse
             DatabaseReference busRef = mDatabase.getReference(Constants.BUS_DATA_REF)
                     .child(idCompania)
@@ -124,6 +134,12 @@ public class DataHandler {
                     .child(idViaje)
                     .child(sessionVM.getUser() + "-" + ValidateData.getTime());
             busRef.setValue(coordinates);
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    excesoDeVelocidadDetectado = false;
+                }
+            }, 60000);
         }
     }
 
@@ -193,5 +209,20 @@ public class DataHandler {
         //guarda los datos
         newRef.setValue(updates);
 
+    }
+
+    public void setValorAcelerometor(Accelerometer observer) {
+        if (!Strings.isNullOrEmpty(idBus) && !Strings.isNullOrEmpty(idViaje)) {
+            observer.setLat(Objects.nonNull(lat) ? lat : 0.0);
+            observer.setLat(Objects.nonNull(lng) ? lng : 0.0);
+            DatabaseReference busRef = mDatabase.getReference(Constants.BUS_DATA_REF)
+                    .child(idCompania)
+                    .child(idBus)
+                    .child(Constants.CHILD_MOVIMEINTO)
+                    .child(ValidateData.getDateTime(false))
+                    .child(idViaje)
+                    .child(sessionVM.getUser() + "-" + ValidateData.getTime());
+            busRef.setValue(observer);
+        }
     }
 }

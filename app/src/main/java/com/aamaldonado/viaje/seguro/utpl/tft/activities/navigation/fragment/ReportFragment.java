@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.aamaldonado.viaje.seguro.utpl.tft.R;
+import com.aamaldonado.viaje.seguro.utpl.tft.common.Constants;
 import com.aamaldonado.viaje.seguro.utpl.tft.databinding.FragmentReportBinding;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.DataHandler;
 import com.google.common.base.Strings;
@@ -78,7 +79,7 @@ public class ReportFragment extends Fragment {
             reports.add("r5");
         }
         Map<String, Object> updates = new HashMap<>();
-        updates.put("reports", reports);
+        updates.put(Constants.CHILD_REPORTS, reports);
         if (!Strings.isNullOrEmpty(binding.txtTv.getText().toString())) {
             updates.put("comment", binding.txtTv.getText().toString());
         }

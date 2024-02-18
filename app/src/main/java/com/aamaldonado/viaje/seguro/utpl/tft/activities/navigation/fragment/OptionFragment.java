@@ -1,6 +1,7 @@
 package com.aamaldonado.viaje.seguro.utpl.tft.activities.navigation.fragment;
 
 import static android.content.Context.MODE_PRIVATE;
+
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -42,6 +43,8 @@ public class OptionFragment extends Fragment {
 
     private long timerValue;
 
+    private boolean tieneExcesos; //variable para controlar si el usuario presenta excesos de velocidad
+    private boolean tieneTransporte; //variable para controlar si se esta registrado en un transporte
 
     public OptionFragment() {
         // Required empty public constructor
@@ -116,37 +119,44 @@ public class OptionFragment extends Fragment {
                             //secuencia
                         }
                     }).start();
-        }else{
+        } else {
             configLayout();
         }
     }
 
     private void configLayout() {
-        //obtener los datos del transporte
-        dataBaseViewModel.getTieneTransporte().observe(getViewLifecycleOwner(), observer -> dataBaseViewModel.loadData());
-        //Contador de exesos de velocidad en el cardview (solo si esta en un transporte)
-        dataBaseViewModel.getExcesosList().observe(getViewLifecycleOwner(), observer -> {
-            if (observer != null) {
-                int countEx = observer.size();
-                if (countEx == 0) {
-                    binding.counterEx.setVisibility(View.GONE);
-                } else {
-                    binding.counterEx.setVisibility(View.VISIBLE);
-                    binding.counterEx.setText(String.valueOf(observer.size()));
-                }
-            }
-        });
+        tieneExcesos = false;
+        observers();
         //redirect navigation between Fragments
         //Card mapa
         binding.cardMapa.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(OptionFragmentDirections.actionOptionFragmentToMapFragment()));
         //QR
         binding.cardQr.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(OptionFragmentDirections.actionOptionFragmentToCodigoQrFragment()));
         //Reports
-        binding.cardExcesos.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(OptionFragmentDirections.actionOptionFragmentToExcesosFragment()));
+        binding.cardExcesos.setOnClickListener(v -> {
+            if (tieneExcesos) {
+                Navigation.findNavController(requireView()).navigate(OptionFragmentDirections.actionOptionFragmentToExcesosFragment());
+            } else {
+                Toast.makeText(getActivity(), getString(R.string.no_hay_excesos), Toast.LENGTH_LONG).show();
+            }
+        });
         //Reportar conductor
-        binding.cardReporte.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(OptionFragmentDirections.actionOptionFragmentToReportFragment()));
+        binding.cardReporte.setOnClickListener(v -> {
+            if(tieneTransporte){
+                Navigation.findNavController(requireView()).navigate(OptionFragmentDirections.actionOptionFragmentToReportFragment());
+            }else{
+                Toast.makeText(getActivity(), getString(R.string.debe_estar_registrado_trans), Toast.LENGTH_LONG).show();
+            }
+
+        });
         //boton info
-        binding.cardInfo.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(OptionFragmentDirections.actionOptionFragmentToInfoFragment()));
+        binding.cardInfo.setOnClickListener(v -> {
+            if (Objects.nonNull(locationViewModel.getLocationData().getValue())) {
+                Navigation.findNavController(requireView()).navigate(OptionFragmentDirections.actionOptionFragmentToInfoFragment());
+            } else {
+                Toast.makeText(getActivity(), getString(R.string.vuelva_a_intentarlo), Toast.LENGTH_LONG).show();
+            }
+        });
         //boton de panico
         binding.cardPanico.setOnClickListener(v -> {
             if (Objects.nonNull(locationViewModel.getLocationData().getValue())) {
@@ -159,6 +169,30 @@ public class OptionFragment extends Fragment {
                     Toast.makeText(getActivity(), "Alerta enviada", Toast.LENGTH_LONG).show();
                     DataHandler.getInstance().setAlertaDePanico(lat, lng);
                     bloquearActivarBoton();
+                }
+            }
+        });
+    }
+
+    /**
+     * Metodo para controlar los observables para el transportista y los excesos de velocidad
+     * */
+    private void observers() {
+        //obtener los datos del transporte
+        dataBaseViewModel.getTieneTransporte().observe(getViewLifecycleOwner(), observer -> {
+            tieneTransporte = observer;
+            dataBaseViewModel.loadData();
+        });
+        //Contador de exesos de velocidad en el cardview (solo si esta en un transporte)
+        dataBaseViewModel.getExcesosList().observe(getViewLifecycleOwner(), observer -> {
+            if (observer != null) {
+                int countEx = observer.size();
+                if (countEx == 0) {
+                    binding.counterEx.setVisibility(View.GONE);
+                } else {
+                    tieneExcesos = true;
+                    binding.counterEx.setVisibility(View.VISIBLE);
+                    binding.counterEx.setText(String.valueOf(observer.size()));
                 }
             }
         });
