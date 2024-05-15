@@ -74,7 +74,7 @@
     <string name="datos_capturados">Datos capturados</string>
     <string name="escaner_de_codigo_qr">ESCANER DE CODIGO QR</string>
     <string name="escanea_un_registro">Por favor debe escanear un código QR para registrar los datos del vehículo</string>
-    <string name="bus_data">bus_data</string>
+    <string name="bus_data">reports</string>
     <string name="txt_exceso_reportado"></string>
     <string name="txt_exceso_anulado">Reporte anulado</string>
     <string name="mostrar_ubicacion">Mostrar ubicación</string>

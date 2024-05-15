@@ -17,7 +17,7 @@ import com.aamaldonado.viaje.seguro.utpl.tft.R;
 import com.aamaldonado.viaje.seguro.utpl.tft.common.Constants;
 import com.aamaldonado.viaje.seguro.utpl.tft.databinding.ActivityMainSelectOptionBinding;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.AuthProvider;
-import com.aamaldonado.viaje.seguro.utpl.tft.providers.LocationPermissionChecker;
+import com.aamaldonado.viaje.seguro.utpl.tft.providers.service.LocationPermissionChecker;
 import com.aamaldonado.viaje.seguro.utpl.tft.providers.firebase.DataHandler;
 import com.aamaldonado.viaje.seguro.utpl.tft.utils.ValidateData;
 import com.aamaldonado.viaje.seguro.utpl.tft.viewmodel.sensors.AccelerometerViewModel;

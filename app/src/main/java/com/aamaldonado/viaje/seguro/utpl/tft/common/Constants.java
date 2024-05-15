@@ -10,7 +10,7 @@ public final class Constants {
 
     public static final String USER_ID = "user_id";
     public static final String USER_DATA_REF = "user_data";
-    public static final String BUS_DATA_REF = "bus_data";
+    public static final String BUS_DATA_REF = "reports";
     public static final String CHILD_REPORTS = "exceso_reports";
     public static final String CHILD_MOVIMEINTO = "report_movimiento";
     public static final String CHILD_PERSONAL_REPORTS = "personal_reports";

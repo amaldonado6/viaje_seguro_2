@@ -1,4 +1,4 @@
-package com.aamaldonado.viaje.seguro.utpl.tft.providers;
+package com.aamaldonado.viaje.seguro.utpl.tft.providers.service;
 
 import android.Manifest;
 import android.app.Activity;
